@@ -6,12 +6,8 @@
 
 1. npm run webpack:dev
 
-2. npm run start
+2. npm run dev
 
 ## Deploy
 
-1. Create and fill .env
-
-2. npm run webpack:build
-
-3. start app.js
+TODO

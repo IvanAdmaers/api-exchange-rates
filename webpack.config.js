@@ -1,69 +1,34 @@
-import path from 'path';
-
-import dotenv from 'dotenv';
-
-// Plugins
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import postcssPresetEnv from 'postcss-preset-env';
-
-dotenv.config({ path: path.resolve('./.env') });
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 const getWebpackConfig = (env) => {
   const isProduction = env.WEBPACK_BUILD;
-
-  const port = process.env.PORT;
-  const devPort = process.env.DEV_PORT || 8080;
+  const mode = isProduction ? 'production' : 'development';
 
   return {
-    devtool: isProduction ? 'hidden-source-map' : 'source-map',
-    entry: {
-      app: './src/js/app.js',
-    },
+    entry: path.resolve('./src/app.ts'),
+    watch: isProduction,
+    mode,
+    target: 'node',
     output: {
-      path: path.resolve('./public/dist'),
-      publicPath: '/dist/',
-      filename: '[name].bundle.js',
-      clean: true,
+      path: path.resolve('./build'),
+      filename: 'index.js',
+    },
+    resolve: {
+      extensions: ['.webpack.js', '.ts', '.js'],
     },
     module: {
       rules: [
         {
-          test: /\.css$/i,
-          use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: { importLoaders: 1 },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: [postcssPresetEnv()],
-                },
-              },
-            },
-          ],
+          // test: /\.ts$/,
+          test: /\.(ts|js)$/,
+          use: ['ts-loader'],
+          exclude: /node_modules/,
         },
       ],
     },
-    optimization: {
-      minimizer: ['...', new CssMinimizerPlugin()],
-    },
-    plugins: [new MiniCssExtractPlugin({ filename: '[name].bundle.css' })],
-    devServer: {
-      port: devPort,
-      watchFiles: ['views'],
-      proxy: {
-        '*': {
-          target: `http://localhost:${port}`,
-          secure: false,
-        },
-      },
-      open: true,
-    },
+    externals: [nodeExternals()],
   };
 };
 
-export default getWebpackConfig;
+module.exports = getWebpackConfig;
