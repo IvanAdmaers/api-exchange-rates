@@ -22,6 +22,12 @@ class FileSystem {
 
     return meta;
   }
+
+  async writeFile(path, data) {
+    await fs.writeFile(path, data);
+
+    return true;
+  }
 }
 
 export default new FileSystem();
