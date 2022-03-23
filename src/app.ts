@@ -9,6 +9,9 @@ import exchangeRatesRouter from './routes/exchangeRatesRouter';
 import notFoundHandlerMiddleware from './middlewares/notFoundHandlerMiddleware';
 import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
 
+// Helpers
+import { shouldUpdateRates } from './helpers';
+
 dotenv.config({
   path: path.resolve('../.env'),
 });
@@ -26,6 +29,27 @@ app.use(errorHandlerMiddleware());
 
 const PORT = process.env.PORT ?? 3000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on PORT ${PORT} 🚀`);
-});
+const updateRates = async () => {
+  await Promise.resolve();
+
+  return true;
+};
+
+const start = async () => {
+  try {
+    const shouldUpdate = await shouldUpdateRates();
+  
+    if (shouldUpdate) {
+      await updateRates();
+    }
+  
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is running on PORT ${PORT} 🚀`);
+    });
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
+start();
