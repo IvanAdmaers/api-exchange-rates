@@ -10,7 +10,7 @@ import notFoundHandlerMiddleware from './middlewares/notFoundHandlerMiddleware';
 import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
 
 // Helpers
-import { shouldUpdateRates } from './helpers';
+import { shouldUpdateRates, updateRates } from './helpers';
 
 dotenv.config({
   path: path.resolve('../.env'),
@@ -28,12 +28,6 @@ app.use(notFoundHandlerMiddleware());
 app.use(errorHandlerMiddleware());
 
 const PORT = process.env.PORT ?? 3000;
-
-const updateRates = async () => {
-  await Promise.resolve();
-
-  return true;
-};
 
 const start = async () => {
   try {
