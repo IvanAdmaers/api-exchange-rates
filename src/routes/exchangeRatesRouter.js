@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
-import { latest } from '../controllers/exchangeRatesController';
+import { rates } from '../controllers/exchangeRatesController';
 
 const router = Router();
 
-router.get('/latest', latest);
+router.get('/latest', rates);
+router.get('/:date', rates);
+router.get('/timeseries', rates);
 
 export default router;
