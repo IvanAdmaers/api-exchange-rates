@@ -1,5 +1,3 @@
-import BankAPIService from '../services/BankAPIService';
-
 import {
   modifyWithBase,
   sortObjectAlphabetically,
@@ -7,10 +5,14 @@ import {
   modifyWithAmount,
 } from '../utills';
 
+import ratesList from '../cache/rates.json';
+
+const latestDateKey = Object.keys(ratesList)[0];
+
 export const latest = async (req, res) => {
   const { base, symbols, amount } = req.query;
 
-  const { rates, date } = await BankAPIService.latest();
+  const rates = ratesList[latestDateKey];
 
   const modifiedWithBase = modifyWithBase(base, rates);
 
@@ -22,5 +24,5 @@ export const latest = async (req, res) => {
 
   const sortedByAlphabetically = sortObjectAlphabetically(modifiedWithAmount);
 
-  return res.json({ rates: sortedByAlphabetically, date });
+  return res.json({ rates: sortedByAlphabetically, date: latestDateKey });
 };
