@@ -57,13 +57,9 @@ const modifyRates = ({ rates, base, symbols, amount, isTimeseries }) => {
   return result;
 };
 
-const getRatesList = ({ date, startDate, endDate, isTimeseries }) => {
-  if (!isTimeseries) {
-    const rates = !date ? ratesList[latestDateKey] : ratesList[date];
-
-    return rates;
-  }
-
+const getLatestRates = () => ratesList[latestDateKey];
+const getHistoricalRates = (date) => ratesList[date];
+const getTimeseriesRates = (startDate, endDate) => {
   const result = {};
 
   const dates = getDatesInRange(startDate, endDate);
@@ -82,6 +78,22 @@ const getRatesList = ({ date, startDate, endDate, isTimeseries }) => {
   return result;
 };
 
+const getRatesList = ({ endpoint, date, startDate, endDate }) => {
+  switch (endpoint) {
+    case 'latest':
+      return getLatestRates();
+
+    case 'historical':
+      return getHistoricalRates(date);
+
+    case 'timeseries':
+      return getTimeseriesRates(startDate, endDate);
+
+    default:
+      throw new Error('Endpoint is unknown');
+  }
+};
+
 export const rates = async (req, res) => {
   const {
     base,
@@ -96,15 +108,21 @@ export const rates = async (req, res) => {
   const isTimeseries = endpoint === 'timeseries';
 
   const currentRatesList = getRatesList({
+    endpoint,
     date,
     startDate,
     endDate,
-    isTimeseries,
   });
 
   const ratesData = !currentRatesList
     ? null
-    : modifyRates({ rates: currentRatesList, base, symbols, amount, isTimeseries });
+    : modifyRates({
+        rates: currentRatesList,
+        base,
+        symbols,
+        amount,
+        isTimeseries,
+      });
 
   return res.json({ rates: ratesData, endpoint });
 };
