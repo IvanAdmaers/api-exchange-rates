@@ -5,6 +5,8 @@ import sortObjectAlphabetically from './sortObjectAlphabetically';
 import modifyWithBase from './modifyWithBase';
 import modifyWithSymbols from './modifyWithSymbols';
 import modifyWithAmount from './modifyWithAmount';
+import formatDate from './formatDate';
+import getDatesInRange from './getDatesInRange';
 
 export {
   getErrorBody,
@@ -14,4 +16,6 @@ export {
   modifyWithBase,
   modifyWithSymbols,
   modifyWithAmount,
+  formatDate,
+  getDatesInRange,
 };

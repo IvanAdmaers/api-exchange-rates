@@ -3,6 +3,8 @@ import {
   sortObjectAlphabetically,
   modifyWithSymbols,
   modifyWithAmount,
+  formatDate,
+  getDatesInRange,
 } from '../utills';
 
 import ratesList from '../cache/rates.json';
@@ -41,40 +43,6 @@ const compose = ({ rates, base, symbols, amount, isTimeseries }) => {
   });
 
   return result;
-};
-
-const getDatesInRange = (start, end) => {
-  const startDate = new Date(start);
-  const endDate = new Date(end);
-
-  const date = new Date(startDate.getTime());
-
-  const dates = [];
-
-  while (date <= endDate) {
-    dates.push(new Date(date));
-    date.setDate(date.getDate() + 1);
-  }
-
-  return dates;
-};
-
-const formatDate = (date) => {
-  const currentDate = new Date(date);
-
-  let month = (currentDate.getMonth() + 1).toString();
-  let day = date.getDate().toString();
-  const year = currentDate.getFullYear();
-
-  if (month.length < 2) {
-    month = `0${month}`;
-  }
-
-  if (day.length < 2) {
-    day = `0${day}`;
-  }
-
-  return [year, month, day].join('-');
 };
 
 const getRatesList = ({ date, startDate, endDate, isTimeseries }) => {
