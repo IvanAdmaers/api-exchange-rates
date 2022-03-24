@@ -11,6 +11,18 @@ import ratesList from '../cache/rates.json';
 
 const latestDateKey = Object.keys(ratesList)[0];
 
+const defineEndpoint = ({ startDate, endDate, date }) => {
+  if (startDate && endDate) {
+    return 'timeseries';
+  }
+
+  if (date) {
+    return 'historical';
+  }
+
+  return 'latest';
+};
+
 const compose = ({ rates, base, symbols, amount, isTimeseries }) => {
   const doCompose = (ratesItem) => {
     const modifiedWithBase = modifyWithBase(base, ratesItem);
@@ -70,18 +82,6 @@ const getRatesList = ({ date, startDate, endDate, isTimeseries }) => {
   return result;
 };
 
-const getRates = ({ base, symbols, amount, date, startDate, endDate }) => {
-  const isTimeseries = startDate && endDate;
-
-  const rates = getRatesList({ date, startDate, endDate, isTimeseries });
-
-  const ratesData = !rates
-    ? null
-    : compose({ rates, base, symbols, amount, isTimeseries });
-
-  return ratesData;
-};
-
 export const rates = async (req, res) => {
   const {
     base,
@@ -92,14 +92,19 @@ export const rates = async (req, res) => {
   } = req.query;
   const { date } = req.params;
 
-  const ratesData = getRates({
-    base,
-    symbols,
-    amount,
+  const endpoint = defineEndpoint({ date, startDate, endDate });
+  const isTimeseries = endpoint === 'timeseries';
+
+  const currentRatesList = getRatesList({
     date,
     startDate,
     endDate,
+    isTimeseries,
   });
 
-  return res.json({ rates: ratesData });
+  const ratesData = !currentRatesList
+    ? null
+    : compose({ rates: currentRatesList, base, symbols, amount, isTimeseries });
+
+  return res.json({ rates: ratesData, endpoint });
 };
