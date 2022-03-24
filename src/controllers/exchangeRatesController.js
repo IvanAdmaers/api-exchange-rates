@@ -23,8 +23,8 @@ const defineEndpoint = ({ startDate, endDate, date }) => {
   return 'latest';
 };
 
-const compose = ({ rates, base, symbols, amount, isTimeseries }) => {
-  const doCompose = (ratesItem) => {
+const modifyRates = ({ rates, base, symbols, amount, isTimeseries }) => {
+  const doModify = (ratesItem) => {
     const modifiedWithBase = modifyWithBase(base, ratesItem);
 
     const modifiedWithSymbols = modifyWithSymbols(symbols, modifiedWithBase);
@@ -42,14 +42,14 @@ const compose = ({ rates, base, symbols, amount, isTimeseries }) => {
   };
 
   if (!isTimeseries) {
-    return doCompose(rates);
+    return doModify(rates);
   }
 
   const result = {};
   const keys = Object.entries(rates);
 
   keys.forEach(([date, value]) => {
-    const composed = doCompose(value);
+    const composed = doModify(value);
 
     result[date] = composed;
   });
@@ -104,7 +104,7 @@ export const rates = async (req, res) => {
 
   const ratesData = !currentRatesList
     ? null
-    : compose({ rates: currentRatesList, base, symbols, amount, isTimeseries });
+    : modifyRates({ rates: currentRatesList, base, symbols, amount, isTimeseries });
 
   return res.json({ rates: ratesData, endpoint });
 };
