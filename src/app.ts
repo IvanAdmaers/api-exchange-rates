@@ -13,7 +13,7 @@ import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
 import { shouldUpdateRates, updateRates } from './helpers';
 
 dotenv.config({
-  path: path.resolve('../.env'),
+  path: path.resolve('.env'),
 });
 
 const app = express();
