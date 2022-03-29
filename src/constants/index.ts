@@ -6,4 +6,3 @@ export const RATES_CACHE_PATH: string = path.resolve(
   `./src/cache/${RATES_CACHE_FILE}`
 );
 export const RATES_CACHE_UPDATE_TIME_IN_MINUTES: number = 60;
-export const LATEST_RATES_DATE_CACHE_KEY: string = 'latestRatesDate';
