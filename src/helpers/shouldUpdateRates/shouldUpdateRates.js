@@ -3,6 +3,7 @@ import { FileSystem } from '../../libs';
 import {
   RATES_CACHE_PATH,
   RATES_CACHE_UPDATE_TIME_IN_MINUTES,
+  RATES_FAKE_VALUE,
 } from '../../constants';
 
 /**
@@ -17,6 +18,10 @@ const shouldUpdateRates = async () => {
   }
 
   const ratesMeta = await FileSystem.getFileMeta(RATES_CACHE_PATH);
+
+  if (ratesMeta.size === Buffer.byteLength(RATES_FAKE_VALUE)) {
+    return true;
+  }
 
   const difference = Date.now() - ratesMeta.mtimeMs;
   const minutes = Math.round(difference / 60000);
