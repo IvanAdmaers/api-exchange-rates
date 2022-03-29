@@ -1,5 +1,3 @@
-import cache from 'memory-cache-pro';
-
 import {
   modifyWithBase,
   sortObjectAlphabetically,
@@ -8,12 +6,8 @@ import {
   formatDate,
   getDatesInRange,
 } from '../utills';
-import { LATEST_RATES_DATE_CACHE_KEY } from '../constants';
 
-import ratesList from '../cache/rates.json';
-
-const latestDateKey =
-  cache.get(LATEST_RATES_DATE_CACHE_KEY) || Object.keys(ratesList)[0];
+import { rates as ratesList, lastRatesDate } from '../cache/rates.json';
 
 const defineEndpoint = ({ startDate, endDate, date }) => {
   if (startDate && endDate) {
@@ -61,7 +55,7 @@ const modifyRates = ({ rates, base, symbols, amount, isTimeseries }) => {
   return result;
 };
 
-const getLatestRates = () => ratesList[latestDateKey];
+const getLatestRates = () => ratesList[lastRatesDate];
 const getHistoricalRates = (date) => ratesList[date];
 const getTimeseriesRates = (startDate, endDate) => {
   const result = {};
