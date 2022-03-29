@@ -19,7 +19,7 @@ dotenv.config({
 const app = express();
 
 // Routes
-app.use('/api', exchangeRatesRouter);
+app.use('/', exchangeRatesRouter);
 
 // 404
 app.use(notFoundHandlerMiddleware());
