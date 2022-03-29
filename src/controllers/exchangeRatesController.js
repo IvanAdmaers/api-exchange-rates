@@ -1,3 +1,5 @@
+import cache from 'memory-cache-pro';
+
 import {
   modifyWithBase,
   sortObjectAlphabetically,
@@ -6,10 +8,12 @@ import {
   formatDate,
   getDatesInRange,
 } from '../utills';
+import { LATEST_RATES_DATE_CACHE_KEY } from '../constants';
 
 import ratesList from '../cache/rates.json';
 
-const latestDateKey = Object.keys(ratesList)[0];
+const latestDateKey =
+  cache.get(LATEST_RATES_DATE_CACHE_KEY) || Object.keys(ratesList)[0];
 
 const defineEndpoint = ({ startDate, endDate, date }) => {
   if (startDate && endDate) {
