@@ -1,5 +1,3 @@
-import { DEFAULT_BASE } from '../../constants';
-
 /**
  * This function modifies rates depending on currency
  *
@@ -12,7 +10,7 @@ const modifyWithBase = (base = '', data = {}) => {
   const currentBase = data[base];
 
   if (!currentBase) {
-    return { ...data, [DEFAULT_BASE]: 1 };
+    return { ...data };
   }
 
   Object.entries(data).forEach(([key, value]) => {
@@ -24,8 +22,6 @@ const modifyWithBase = (base = '', data = {}) => {
 
     result[key] = value / currentBase;
   });
-
-  result[DEFAULT_BASE] = 1 / currentBase;
 
   return result;
 };
