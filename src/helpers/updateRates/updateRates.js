@@ -1,14 +1,8 @@
-import cache from 'memory-cache-pro';
-
 import BankAPIService from '../../services/BankAPIService';
 
 import { FileSystem } from '../../libs';
 import { modifyWithBase } from '../../utills';
-import {
-  RATES_CACHE_PATH,
-  DEFAULT_BASE,
-  LATEST_RATES_DATE_CACHE_KEY,
-} from '../../constants';
+import { RATES_CACHE_PATH, DEFAULT_BASE } from '../../constants';
 
 /**
  * This function update rates
@@ -18,16 +12,20 @@ const updateRates = async () => {
   const ratesBase = 'EUR';
 
   const rates = {};
+  let lastRatesDate = null;
 
   Object.entries(ratesList).forEach(([key, value], index) => {
     if (index === 0) {
-      cache.put(LATEST_RATES_DATE_CACHE_KEY, key);
+      lastRatesDate = key;
     }
 
-    rates[key] = modifyWithBase(DEFAULT_BASE, { ...value, [ratesBase]: 1 });
+    rates[key] = modifyWithBase(DEFAULT_BASE, {
+      ...value,
+      [ratesBase]: 1,
+    });
   });
 
-  const ratesJSON = JSON.stringify(rates);
+  const ratesJSON = JSON.stringify({ rates, lastRatesDate });
 
   await FileSystem.writeFile(RATES_CACHE_PATH, ratesJSON);
 };
