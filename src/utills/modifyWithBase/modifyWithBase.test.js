@@ -2,21 +2,20 @@ import modifyWithBase from '.';
 import { DEFAULT_BASE } from '../../constants';
 
 const input = {
-  USD: 1.1051,
-  AUD: 1.5055,
-  CAD: 1.3998,
-  GBP: 0.84315,
+  USD: 1,
+  EUR: 0.911,
+  AUD: 1.330,
+  CAD: 1.249,
+  GBP: 0.762,
 };
 
 describe('modifyWithBase', () => {
-  it(`should add default base value and dont't do anything else if there is no current base`, () => {
-    const output = { ...input, [DEFAULT_BASE]: 1 };
-
-    expect(modifyWithBase(DEFAULT_BASE, input)).toEqual(output);
+  it('should not modify anything', () => {
+    expect(modifyWithBase(DEFAULT_BASE, input)).toEqual(input);
   });
 
   it('should modify rates by dividing a currency value by a current base value', () => {
-    const base = 'USD';
+    const base = 'EUR';
 
     const baseValue = input[base];
     const output = {};
@@ -30,14 +29,10 @@ describe('modifyWithBase', () => {
       output[key] = value / baseValue;
     });
 
-    output[DEFAULT_BASE] = 1 / baseValue;
-
     expect(modifyWithBase(base, input)).toEqual(output);
   });
 
   it(`should change nothing if a base doesn't exist`, () => {
-    const output = { ...input, [DEFAULT_BASE]: 1 };
-
-    expect(modifyWithBase('I_DONT_EXIST', input)).toEqual(output);
+    expect(modifyWithBase('I_DONT_EXIST', input)).toEqual(input);
   });
 });
