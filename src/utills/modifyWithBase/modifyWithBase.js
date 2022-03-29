@@ -6,12 +6,13 @@
  * @returns {Object} Modified data
  */
 const modifyWithBase = (base = '', data = {}) => {
-  const result = {};
   const currentBase = data[base];
 
   if (!currentBase) {
     return { ...data };
   }
+
+  const result = {};
 
   Object.entries(data).forEach(([key, value]) => {
     if (key === base) {
