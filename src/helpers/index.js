@@ -1,4 +1,4 @@
 import shouldUpdateRates from './shouldUpdateRates';
-import updateRates from './updateRates';
+import setRates from './setRates';
 
-export { shouldUpdateRates, updateRates };
+export { shouldUpdateRates, setRates };

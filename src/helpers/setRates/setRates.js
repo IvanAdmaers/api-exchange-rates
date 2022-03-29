@@ -7,7 +7,7 @@ import { RATES_CACHE_PATH, DEFAULT_BASE } from '../../constants';
 /**
  * This function update rates
  */
-const updateRates = async () => {
+const setRates = async () => {
   const ratesList = await BankAPIService.historical();
   const ratesBase = 'EUR';
 
@@ -30,4 +30,4 @@ const updateRates = async () => {
   await FileSystem.writeFile(RATES_CACHE_PATH, ratesJSON);
 };
 
-export default updateRates;
+export default setRates;

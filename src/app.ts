@@ -10,7 +10,7 @@ import notFoundHandlerMiddleware from './middlewares/notFoundHandlerMiddleware';
 import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
 
 // Helpers
-import { shouldUpdateRates, updateRates } from './helpers';
+import { shouldUpdateRates, setRates } from './helpers';
 
 dotenv.config({
   path: path.resolve('.env'),
@@ -34,7 +34,7 @@ const start = async () => {
     const shouldUpdate = await shouldUpdateRates();
   
     if (shouldUpdate) {
-      await updateRates();
+      await setRates();
     }
   
     app.listen(PORT, () => {
