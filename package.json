@@ -39,6 +39,7 @@
     "@types/express": "^4.17.13",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "memory-cache-pro": "^1.0.1",
     "node-fetch": "^2.6.1",
     "xml-js": "^1.6.11"
   }
