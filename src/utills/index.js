@@ -7,6 +7,7 @@ import modifyWithSymbols from './modifyWithSymbols';
 import modifyWithAmount from './modifyWithAmount';
 import formatDate from './formatDate';
 import getDatesInRange from './getDatesInRange';
+import toFixed from './toFixed';
 
 export {
   getErrorBody,
@@ -18,4 +19,5 @@ export {
   modifyWithAmount,
   formatDate,
   getDatesInRange,
+  toFixed,
 };
