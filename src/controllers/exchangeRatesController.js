@@ -1,9 +1,4 @@
-import {
-  formatDate,
-  getDatesInRange,
-} from '../utills';
-
-import { modifyRates } from '../helpers';
+import { modifyRates, getRatesList } from '../helpers';
 
 import { rates as ratesList, lastRatesDate } from '../cache/rates.json';
 
@@ -17,43 +12,6 @@ const defineEndpoint = ({ startDate, endDate, date }) => {
   }
 
   return 'latest';
-};
-
-const getLatestRates = () => ratesList[lastRatesDate];
-const getHistoricalRates = (date) => ratesList[date];
-const getTimeseriesRates = (startDate, endDate) => {
-  const result = {};
-
-  const dates = getDatesInRange(startDate, endDate);
-  const dateList = dates.map((itemDate) => formatDate(itemDate));
-
-  dateList.forEach((itemDate) => {
-    const dateData = ratesList[itemDate];
-
-    if (!dateData) {
-      return;
-    }
-
-    result[itemDate] = dateData;
-  });
-
-  return result;
-};
-
-const getRatesList = ({ endpoint, date, startDate, endDate }) => {
-  switch (endpoint) {
-    case 'latest':
-      return getLatestRates();
-
-    case 'historical':
-      return getHistoricalRates(date);
-
-    case 'timeseries':
-      return getTimeseriesRates(startDate, endDate);
-
-    default:
-      throw new Error('Endpoint is unknown');
-  }
 };
 
 export const rates = async (req, res) => {
@@ -70,6 +28,8 @@ export const rates = async (req, res) => {
   const isTimeseries = endpoint === 'timeseries';
 
   const currentRatesList = getRatesList({
+    rates: ratesList,
+    lastRatesDate,
     endpoint,
     date,
     startDate,
