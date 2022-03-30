@@ -1,11 +1,11 @@
 const fs = require('fs/promises');
 
-const { RATES_CACHE_PATH, RATES_FAKE_VALUE } = require('../../../constants');
+const { RATES_CACHE_PATH, RATES_PLUG } = require('../../../constants');
 
 const prepare = async () => {
-  const fakeRates = RATES_FAKE_VALUE;
+  const ratesPlug = RATES_PLUG;
 
-  await fs.writeFile(RATES_CACHE_PATH, fakeRates);
+  await fs.writeFile(RATES_CACHE_PATH, ratesPlug);
 };
 
 module.exports = prepare;
