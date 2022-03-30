@@ -1,4 +1,6 @@
-const getErrorBody = (errorText = '') => ({
+const getErrorBody = (code, errorText = '') => ({
+  success: false,
+  code,
   error: errorText,
 });
 
