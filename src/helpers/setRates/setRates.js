@@ -1,7 +1,7 @@
 import BankAPIService from '../../services/BankAPIService';
 
 import { FileSystem } from '../../libs';
-import { modifyWithBase } from '../../utills';
+import { modifyWithBase, toFixed } from '../../utills';
 import { RATES_CACHE_PATH, DEFAULT_BASE } from '../../constants';
 
 /**
@@ -19,10 +19,19 @@ const setRates = async () => {
       lastRatesDate = key;
     }
 
-    rates[key] = modifyWithBase(DEFAULT_BASE, {
+    const modifiedWithBase = modifyWithBase(DEFAULT_BASE, {
       ...value,
       [ratesBase]: 1,
     });
+
+    const ratesWithFixedValues = {};
+    const fixDigits = 6;
+
+    Object.entries(modifiedWithBase).forEach(([rateKey, rateValue]) => {
+      ratesWithFixedValues[rateKey] = toFixed(rateValue, fixDigits);
+    });
+
+    rates[key] = ratesWithFixedValues;
   });
 
   const ratesJSON = JSON.stringify({ rates, lastRatesDate });
