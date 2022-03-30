@@ -4,8 +4,8 @@ import { rates } from '../controllers/exchangeRatesController';
 
 const router = Router();
 
-router.get('/latest', rates);
-router.get('/:date', rates);
-router.get('/timeseries', rates);
+router.get('/ecb/latest', rates);
+router.get('/ecb/:date', rates);
+router.get('/ecb/timeseries', rates);
 
 export default router;
