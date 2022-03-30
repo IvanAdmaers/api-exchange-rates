@@ -3,7 +3,7 @@ import { FileSystem } from '../../libs';
 import {
   RATES_CACHE_PATH,
   RATES_CACHE_UPDATE_TIME_IN_MINUTES,
-  RATES_FAKE_VALUE,
+  RATES_PLUG,
 } from '../../constants';
 
 /**
@@ -19,7 +19,7 @@ const shouldUpdateRates = async () => {
 
   const ratesMeta = await FileSystem.getFileMeta(RATES_CACHE_PATH);
 
-  if (ratesMeta.size === Buffer.byteLength(RATES_FAKE_VALUE)) {
+  if (ratesMeta.size === Buffer.byteLength(RATES_PLUG)) {
     return true;
   }
 
