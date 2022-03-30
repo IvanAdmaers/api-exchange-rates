@@ -9,6 +9,9 @@ import exchangeRatesRouter from './routes/exchangeRatesRouter';
 import notFoundHandlerMiddleware from './middlewares/notFoundHandlerMiddleware';
 import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
 
+// Libs
+import { cron } from './libs';
+
 // Helpers
 import { shouldUpdateRates, setRates } from './helpers';
 
@@ -36,6 +39,8 @@ const start = async () => {
     if (shouldUpdate) {
       await setRates();
     }
+
+    cron();
   
     app.listen(PORT, () => {
       console.log(`🚀 Server is running on PORT ${PORT} 🚀`);
