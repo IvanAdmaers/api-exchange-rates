@@ -1,11 +1,9 @@
 import {
-  modifyWithBase,
-  sortObjectAlphabetically,
-  modifyWithSymbols,
-  modifyWithAmount,
   formatDate,
   getDatesInRange,
 } from '../utills';
+
+import { modifyRates } from '../helpers';
 
 import { rates as ratesList, lastRatesDate } from '../cache/rates.json';
 
@@ -19,40 +17,6 @@ const defineEndpoint = ({ startDate, endDate, date }) => {
   }
 
   return 'latest';
-};
-
-const modifyRates = ({ rates, base, symbols, amount, isTimeseries }) => {
-  const doModify = (ratesItem) => {
-    const modifiedWithBase = modifyWithBase(base, ratesItem);
-
-    const modifiedWithSymbols = modifyWithSymbols(symbols, modifiedWithBase);
-
-    const paramAmount = amount ? +amount : 1;
-
-    const modifiedWithAmount = modifyWithAmount(
-      paramAmount,
-      modifiedWithSymbols
-    );
-
-    const sortedByAlphabetically = sortObjectAlphabetically(modifiedWithAmount);
-
-    return sortedByAlphabetically;
-  };
-
-  if (!isTimeseries) {
-    return doModify(rates);
-  }
-
-  const result = {};
-  const keys = Object.entries(rates);
-
-  keys.forEach(([date, value]) => {
-    const composed = doModify(value);
-
-    result[date] = composed;
-  });
-
-  return result;
 };
 
 const getLatestRates = () => ratesList[lastRatesDate];
