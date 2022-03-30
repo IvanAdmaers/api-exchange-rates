@@ -1,3 +1,4 @@
 import FileSystem from './FileSystem';
+import cron from './cron';
 
-export { FileSystem };
+export { FileSystem, cron };
