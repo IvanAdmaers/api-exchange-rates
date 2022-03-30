@@ -1,18 +1,6 @@
-import { modifyRates, getRatesList } from '../helpers';
+import { modifyRates, getRatesList, defineEndpoint } from '../helpers';
 
 import { rates as ratesList, lastRatesDate } from '../cache/rates.json';
-
-const defineEndpoint = ({ startDate, endDate, date }) => {
-  if (startDate && endDate) {
-    return 'timeseries';
-  }
-
-  if (date) {
-    return 'historical';
-  }
-
-  return 'latest';
-};
 
 export const rates = async (req, res) => {
   const {
