@@ -5,6 +5,7 @@ import getLatestRates from './getLatestRates';
 import getHistoricalRates from './getHistoricalRates';
 import getTimeseriesRates from './getTimeseriesRates';
 import getRatesList from './getRatesList';
+import defineEndpoint from './defineEndpoint';
 
 export {
   shouldUpdateRates,
@@ -14,4 +15,5 @@ export {
   getHistoricalRates,
   getTimeseriesRates,
   getRatesList,
+  defineEndpoint,
 };
