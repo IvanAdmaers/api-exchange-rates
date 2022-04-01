@@ -1,6 +1,6 @@
 import BankAPIService from '../../services/BankAPIService';
 
-import { FileSystem } from '../../libs';
+import FileSystem from '../../libs/FileSystem';
 import { modifyWithBase, modifyWithToFixed } from '../../utills';
 import { RATES_CACHE_PATH, DEFAULT_BASE } from '../../constants';
 
