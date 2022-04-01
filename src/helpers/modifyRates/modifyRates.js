@@ -2,8 +2,11 @@ import {
   modifyWithBase,
   modifyWithSymbols,
   modifyWithAmount,
+  modifyWithToFixed,
   sortObjectAlphabetically,
 } from '../../utills';
+
+import { TO_FIXED_DEFAULT_VALUE } from '../../constants';
 
 /**
  * This function modifies rates. Call order: modifyWithBase => modifyWithSymbols => modifyWithAmount => sortObjectAlphabetically
@@ -21,7 +24,12 @@ const modifyRates = ({ rates, base, symbols, amount, isTimeseries }) => {
       modifiedWithSymbols
     );
 
-    const sortedByAlphabetically = sortObjectAlphabetically(modifiedWithAmount);
+    const modifiedWithToFixed = modifyWithToFixed(
+      modifiedWithAmount,
+      TO_FIXED_DEFAULT_VALUE
+    );
+
+    const sortedByAlphabetically = sortObjectAlphabetically(modifiedWithToFixed);
 
     return sortedByAlphabetically;
   };
