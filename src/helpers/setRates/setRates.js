@@ -2,7 +2,11 @@ import BankAPIService from '../../services/BankAPIService';
 
 import FileSystem from '../../libs/FileSystem';
 import { modifyWithBase, modifyWithToFixed } from '../../utills';
-import { RATES_CACHE_PATH, DEFAULT_BASE } from '../../constants';
+import {
+  RATES_CACHE_PATH,
+  DEFAULT_BASE,
+  TO_FIXED_DEFAULT_VALUE,
+} from '../../constants';
 
 /**
  * This function update rates
@@ -24,7 +28,10 @@ const setRates = async () => {
       [ratesBase]: 1,
     });
 
-    const modifiedWithToFixed = modifyWithToFixed(modifiedWithBase, 6);
+    const modifiedWithToFixed = modifyWithToFixed(
+      modifiedWithBase,
+      TO_FIXED_DEFAULT_VALUE
+    );
 
     rates[key] = modifiedWithToFixed;
   });
