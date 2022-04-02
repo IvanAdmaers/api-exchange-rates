@@ -1,20 +1,23 @@
+import { ratesType } from '../../typescript/types';
+
 /**
  * This function modifies rates depending on currency
- *
- * @param {string | null} base - Current base
- * @param {Object} data - Rates data
- * @returns {Object} Modified data
  */
-const modifyWithBase = (base = '', data = {}) => {
-  const currentBase = data[base];
+const modifyWithBase = (
+  base: string | undefined | null,
+  data: ratesType
+): ratesType => {
+  const currentBaseExists: boolean = Boolean(base && base in data);
 
-  if (!currentBase) {
+  if (!currentBaseExists) {
     return { ...data };
   }
 
-  const result = {};
+  const currentBase: number = data[base!];
 
-  Object.entries(data).forEach(([key, value]) => {
+  const result: ratesType = {};
+
+  Object.entries(data).forEach(([key, value]: [string, number]) => {
     if (key === base) {
       result[key] = 1;
 

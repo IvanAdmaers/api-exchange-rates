@@ -1,10 +1,11 @@
+import { ratesType } from '../../typescript/types';
 import modifyWithBase from '.';
 import { DEFAULT_BASE } from '../../constants';
 
-const input = {
+const input: ratesType = {
   USD: 1,
   EUR: 0.911,
-  AUD: 1.330,
+  AUD: 1.33,
   CAD: 1.249,
   GBP: 0.762,
 };
@@ -15,12 +16,12 @@ describe('modifyWithBase', () => {
   });
 
   it('should modify rates by dividing a currency value by a current base value', () => {
-    const base = 'EUR';
+    const base: string = 'EUR';
 
-    const baseValue = input[base];
-    const output = {};
+    const baseValue: number = input[base];
+    const output: ratesType = {};
 
-    Object.entries(input).forEach(([key, value]) => {
+    Object.entries(input).forEach(([key, value]: [string, number]) => {
       if (key === base) {
         output[key] = 1;
         return;
