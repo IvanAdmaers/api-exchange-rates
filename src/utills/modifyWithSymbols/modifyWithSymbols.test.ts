@@ -1,6 +1,7 @@
+import { rates } from '../../typescript/types';
 import modifyWithSymbols from '.';
 
-const input = {
+const input: rates = {
   USD: 1.1051,
   AUD: 1.5055,
   CAD: 1.3998,
@@ -10,13 +11,13 @@ const input = {
 
 describe('modifyWithSymbols', () => {
   it('should modify nothing if there are no symbols', () => {
-    const symbols = null;
+    const symbols: null = null;
 
     expect(modifyWithSymbols(symbols, input)).toEqual(input);
   });
 
   it('should return only currencies with correct symbols', () => {
-    const symbols = [
+    const symbols: string = [
       ...Object.keys(input),
       'I_DOESNT_EXIST',
       'I_DOESNT_EXIST_2',
@@ -26,16 +27,16 @@ describe('modifyWithSymbols', () => {
   });
 
   it('should return input data if there are no currencies sorted by symbols', () => {
-    const symbols = 'none';
+    const symbols: 'none' = 'none';
 
     expect(modifyWithSymbols(symbols, input)).toEqual(input);
   });
 
   it('should return a correct result', () => {
-    const symbols = 'USD,CAD';
+    const symbols: 'USD,CAD' = 'USD,CAD';
 
-    const symbolsArray = symbols.split(',');
-    const result = {};
+    const symbolsArray: string[] = symbols.split(',');
+    const result: rates = {};
     symbolsArray.forEach((key) => {
       result[key] = input[key];
     });

@@ -1,3 +1,5 @@
+import { rates } from '../../typescript/types';
+
 /**
  * This function returns an object of currencies by symbols
  *
@@ -5,11 +7,11 @@
  * @param {Object} data - Rates data
  * @returns {Object} Modified data
  */
-const modifyWithSymbols = (symbols = '', data = {}) => {
-  const result = {};
-  const symbolsArray = symbols?.split(',');
+const modifyWithSymbols = (symbols: string | undefined | null, data: rates) => {
+  const result: rates = {};
+  const symbolsArray: string[] | undefined = symbols?.split(',');
 
-  if (!symbols || !symbolsArray.length) {
+  if (!symbols || !symbolsArray?.length) {
     return { ...data };
   }
 
