@@ -2,10 +2,6 @@ import { ratesType } from '../../typescript/types';
 
 /**
  * This function returns an object of currencies by symbols
- *
- * @param {string | null} symbols - Symbols to sort
- * @param {Object} data - Rates data
- * @returns {Object} Modified data
  */
 const modifyWithSymbols = (
   symbols: string | undefined | null,
