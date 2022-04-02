@@ -1,2 +1,2 @@
-export type rates = { [key: string]: number };
-export type ratesList = { [key: string]: { [key: string]: number } };
+export type ratesType = { [key: string]: number };
+export type ratesListType = { [key: string]: { [key: string]: number } };
