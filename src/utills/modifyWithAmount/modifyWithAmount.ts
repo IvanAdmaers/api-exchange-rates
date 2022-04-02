@@ -1,12 +1,10 @@
+import { rates } from '../../typescript/types';
+
 /**
  * This function multiplies each currency by amount
- *
- * @param {number} amount - Amount
- * @param {Object} data - Rates data
- * @returns {Object} Modified data
  */
-const modifyWithAmount = (amount = 0, data = {}) => {
-  const result = {};
+const modifyWithAmount = (amount: number, data: rates): rates => {
+  const result: rates = {};
 
   Object.keys(data).forEach((key) => {
     result[key] = data[key] * amount;
