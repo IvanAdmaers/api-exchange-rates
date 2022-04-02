@@ -1,7 +1,7 @@
-import { rates } from '../../typescript/types';
+import { ratesType } from '../../typescript/types';
 import modifyWithAmount from '.';
 
-const input: rates = {
+const input: ratesType = {
   USD: 1.1051,
   AUD: 1.5055,
   CAD: 1.3998,
@@ -13,7 +13,7 @@ describe('modifyWithAmount', () => {
   it('should return a correct result', () => {
     const amount: number = 3;
 
-    const result: rates = {};
+    const result: ratesType = {};
     Object.entries(input).forEach(([key, value]) => {
       result[key] = value * amount;
     });

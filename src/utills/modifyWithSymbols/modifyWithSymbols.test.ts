@@ -1,7 +1,7 @@
-import { rates } from '../../typescript/types';
+import { ratesType } from '../../typescript/types';
 import modifyWithSymbols from '.';
 
-const input: rates = {
+const input: ratesType = {
   USD: 1.1051,
   AUD: 1.5055,
   CAD: 1.3998,
@@ -36,7 +36,7 @@ describe('modifyWithSymbols', () => {
     const symbols: 'USD,CAD' = 'USD,CAD';
 
     const symbolsArray: string[] = symbols.split(',');
-    const result: rates = {};
+    const result: ratesType = {};
     symbolsArray.forEach((key) => {
       result[key] = input[key];
     });
