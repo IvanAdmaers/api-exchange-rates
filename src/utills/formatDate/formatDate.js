@@ -1,8 +1,5 @@
 /**
  * This function formats a date in YYYY-MM-DD format
- * 
- * @param {string} date - Date
- * @returns {string} Formatted date
  */
 const formatDate = (date) => {
   const currentDate = new Date(date);
