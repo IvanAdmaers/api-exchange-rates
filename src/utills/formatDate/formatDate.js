@@ -8,7 +8,7 @@ const formatDate = (date) => {
   const currentDate = new Date(date);
 
   let month = (currentDate.getMonth() + 1).toString();
-  let day = date.getDate().toString();
+  let day = currentDate.getDate().toString();
   const year = currentDate.getFullYear();
 
   if (month.length < 2) {
