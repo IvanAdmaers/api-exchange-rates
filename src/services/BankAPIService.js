@@ -38,22 +38,22 @@ const getHistoricalData = (list = {}) => {
 };
 
 class BankAPIService {
-  #defaultBase;
+  #base;
 
   #latestURL;
 
   #historicalURL;
 
   constructor() {
-    this.#defaultBase = 'EUR';
+    this.#base = 'EUR';
     this.#latestURL =
       'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
     this.#historicalURL =
       'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml';
   }
 
-  get defaultBase() {
-    return this.#defaultBase;
+  get base() {
+    return this.#base;
   }
 
   async #getExchangeRates(type = '') {
