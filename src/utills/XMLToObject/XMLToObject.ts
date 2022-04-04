@@ -1,6 +1,9 @@
 import convert from 'xml-js';
 
-const XMLToObject = (XML = '', compact = true) =>
+/**
+ * This function converts XML to a JS object
+ */
+const XMLToObject = (XML: string, compact: boolean = true) =>
   convert.xml2js(XML, { compact });
 
 export default XMLToObject;
