@@ -1,16 +1,16 @@
+import { RatesInterface } from '../../typescript/interfaces';
 import { toFixed } from '..';
 
 /**
  * This function modifies rates value by digits
- *
- * @param {Object} rates - Rates
- * @param {number} digits - Digits
- * @returns {Object} - Modified rates
  */
-const modifyWithToFixed = (rates, digits) => {
-  const result = {};
+const modifyWithToFixed = (
+  rates: RatesInterface,
+  digits: number
+): RatesInterface => {
+  const result: RatesInterface = {};
 
-  Object.entries(rates).forEach(([rateKey, rateValue]) => {
+  Object.entries(rates).forEach(([rateKey, rateValue]: [string, number]) => {
     result[rateKey] = toFixed(rateValue, digits);
   });
 
