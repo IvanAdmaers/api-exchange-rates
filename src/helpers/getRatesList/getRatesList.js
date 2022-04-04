@@ -19,7 +19,7 @@ const getRatesList = ({
       return getHistoricalRates(rates, date);
 
     case 'timeseries':
-      return getTimeseriesRates(rates, startDate, endDate);
+      return getTimeseriesRates(rates, new Date(startDate), new Date(endDate));
 
     default:
       throw new Error('Endpoint is unknown');
