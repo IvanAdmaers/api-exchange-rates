@@ -13,7 +13,7 @@ import {
  */
 const setRates = async () => {
   const ratesList = await BankAPIService.historical();
-  const ratesBase = 'EUR';
+  const ratesBase = BankAPIService.defaultBase;
 
   const rates = {};
   let lastRatesDate = null;
