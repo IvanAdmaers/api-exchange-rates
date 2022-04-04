@@ -1,9 +1,5 @@
 /**
- * This function gets dates in a range
- * 
- * @param {string} start - Start date
- * @param {string} end - End date
- * @returns {Array} Dates in a range
+ * This function gets dates in a range inclusive
  */
 const getDatesInRange = (start, end) => {
   const startDate = new Date(start);
