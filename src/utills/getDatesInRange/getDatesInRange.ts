@@ -1,13 +1,10 @@
 /**
  * This function gets dates in a range inclusive
  */
-const getDatesInRange = (start, end) => {
-  const startDate = new Date(start);
-  const endDate = new Date(end);
+const getDatesInRange = (startDate: Date, endDate: Date) => {
+  const date: Date = new Date(startDate.getTime());
 
-  const date = new Date(startDate.getTime());
-
-  const dates = [];
+  const dates: Array<Date> = [];
 
   while (date <= endDate) {
     dates.push(new Date(date));
