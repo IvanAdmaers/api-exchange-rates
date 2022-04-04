@@ -8,7 +8,6 @@ import {
 
 /**
  * This function checks should update rates data
- * @returns {<Promise>boolean} True if yes
  */
 const shouldUpdateRates = async () => {
   const ratesCacheExists = await FileSystem.fileExists(RATES_CACHE_PATH);
