@@ -1,4 +1,6 @@
-import { getLatestRates, getHistoricalRates, getTimeseriesRates } from '..';
+import getLatestRates from '../getLatestRates';
+import getHistoricalRates from '../getHistoricalRates';
+import getTimeseriesRates from '../getTimeseriesRates';
 
 /**
  * This function gets rates list
