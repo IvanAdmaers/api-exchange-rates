@@ -1,4 +1,4 @@
-import { FileSystem } from '../../libs';
+import FileSystem from '../../libs/FileSystem';
 
 import {
   RATES_CACHE_PATH,
