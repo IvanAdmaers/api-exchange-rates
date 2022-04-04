@@ -1,12 +1,12 @@
-import { ratesType } from '../../typescript/types';
+import { RatesInterface } from '../../typescript/interfaces';
 
 /**
  * This function modifies rates depending on currency
  */
 const modifyWithBase = (
   base: string | undefined | null,
-  data: ratesType
-): ratesType => {
+  data: RatesInterface
+): RatesInterface => {
   const currentBaseExists: boolean = Boolean(base && base in data);
 
   if (!currentBaseExists) {
@@ -15,7 +15,7 @@ const modifyWithBase = (
 
   const currentBase: number = data[base!];
 
-  const result: ratesType = {};
+  const result: RatesInterface = {};
 
   Object.entries(data).forEach(([key, value]: [string, number]) => {
     if (key === base) {

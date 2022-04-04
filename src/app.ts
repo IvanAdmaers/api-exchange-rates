@@ -35,13 +35,13 @@ const PORT = process.env.PORT ?? 3000;
 const start = async () => {
   try {
     const shouldUpdate = await shouldUpdateRates();
-  
+
     if (shouldUpdate) {
       await setRates();
     }
 
     cron();
-  
+
     app.listen(PORT, () => {
       console.log(`🚀 Server is running on PORT ${PORT} 🚀`);
     });

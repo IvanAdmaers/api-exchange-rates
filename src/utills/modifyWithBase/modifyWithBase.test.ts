@@ -1,8 +1,8 @@
-import { ratesType } from '../../typescript/types';
+import { RatesInterface } from '../../typescript/interfaces';
 import modifyWithBase from '.';
 import { DEFAULT_BASE } from '../../constants';
 
-const input: ratesType = {
+const input: RatesInterface = {
   USD: 1,
   EUR: 0.911,
   AUD: 1.33,
@@ -19,7 +19,7 @@ describe('modifyWithBase', () => {
     const base: string = 'EUR';
 
     const baseValue: number = input[base];
-    const output: ratesType = {};
+    const output: RatesInterface = {};
 
     Object.entries(input).forEach(([key, value]: [string, number]) => {
       if (key === base) {

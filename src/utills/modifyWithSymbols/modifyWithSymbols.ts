@@ -1,13 +1,13 @@
-import { ratesType } from '../../typescript/types';
+import { RatesInterface } from '../../typescript/interfaces';
 
 /**
  * This function returns an object of currencies by symbols
  */
 const modifyWithSymbols = (
   symbols: string | undefined | null,
-  data: ratesType
+  data: RatesInterface
 ) => {
-  const result: ratesType = {};
+  const result: RatesInterface = {};
   const symbolsArray: string[] | undefined = symbols?.split(',');
 
   if (!symbols || !symbolsArray?.length) {
