@@ -8,9 +8,9 @@ const defineEndpoint = ({
   endDate,
   date,
 }: {
-  startDate?: Date;
-  endDate?: Date;
-  date?: Date;
+  startDate?: string;
+  endDate?: string;
+  date?: string;
 }) => {
   if (startDate && endDate) {
     return Endpoint.Timeseries;
