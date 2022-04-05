@@ -2,6 +2,8 @@ import getLatestRates from '../getLatestRates';
 import getHistoricalRates from '../getHistoricalRates';
 import getTimeseriesRates from '../getTimeseriesRates';
 
+import { formatDate } from '../../utills';
+
 /**
  * This function gets rates list
  */
@@ -14,11 +16,17 @@ const getRatesList = ({
   endDate,
 }) => {
   switch (endpoint) {
-    case 'latest':
-      return getLatestRates(rates, lastRatesDate);
+    case 'latest': {
+      const formattedLastRatesDate = formatDate(lastRatesDate);
 
-    case 'historical':
-      return getHistoricalRates(rates, date);
+      return getLatestRates(rates, formattedLastRatesDate);
+    }
+
+    case 'historical': {
+      const formattedDate = formatDate(date);
+
+      return getHistoricalRates(rates, formattedDate);
+    }
 
     case 'timeseries':
       return getTimeseriesRates(rates, startDate, endDate);
