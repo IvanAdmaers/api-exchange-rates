@@ -30,7 +30,7 @@ app.use(notFoundHandlerMiddleware());
 // Errors
 app.use(errorHandlerMiddleware());
 
-const PORT = process.env.PORT ?? 3000;
+const PORT: number = process.env.PORT ? +process.env.PORT : 3000;
 
 const start = async () => {
   try {
