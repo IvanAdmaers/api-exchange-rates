@@ -1,5 +1,7 @@
 import { Endpoint } from '../../typescript/objects';
 
+const { Timeseries, Historical, Latest } = Endpoint;
+
 /**
  * This function defines an endpoint
  */
@@ -13,14 +15,14 @@ const defineEndpoint = ({
   date?: string;
 }) => {
   if (startDate && endDate) {
-    return Endpoint.Timeseries;
+    return Timeseries;
   }
 
   if (date) {
-    return Endpoint.Historical;
+    return Historical;
   }
 
-  return Endpoint.Latest;
+  return Latest;
 };
 
 export default defineEndpoint;
