@@ -43,10 +43,10 @@ const start = async () => {
     cron();
 
     app.listen(PORT, () => {
-      console.log(`🚀 Server is running on PORT ${PORT} 🚀`);
+      console.info(`🚀 Server is running on PORT ${PORT} 🚀`);
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     process.exit(1);
   }
 };
