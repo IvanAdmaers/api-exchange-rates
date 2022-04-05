@@ -1,6 +1,6 @@
-import { Endpoint } from '../../typescript/objects';
+import { EndpointObject } from '../../typescript/objects';
 
-const { Timeseries, Historical, Latest } = Endpoint;
+const { Timeseries, Historical, Latest } = EndpointObject;
 
 /**
  * This function defines an endpoint

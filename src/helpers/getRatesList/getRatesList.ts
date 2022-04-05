@@ -1,5 +1,5 @@
 import { RatesListInterface } from '../../typescript/interfaces';
-import { Endpoint } from '../../typescript/objects';
+import { EndpointObject } from '../../typescript/objects';
 
 import getLatestRates from '../getLatestRates';
 import getHistoricalRates from '../getHistoricalRates';
@@ -7,7 +7,7 @@ import getTimeseriesRates from '../getTimeseriesRates';
 
 import { formatDate } from '../../utills';
 
-const { Latest, Historical, Timeseries } = Endpoint;
+const { Latest, Historical, Timeseries } = EndpointObject;
 
 /**
  * This function gets rates list

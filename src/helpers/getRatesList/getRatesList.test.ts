@@ -1,8 +1,8 @@
 import { RatesListInterface } from '../../typescript/interfaces';
-import { Endpoint } from '../../typescript/objects';
+import { EndpointObject } from '../../typescript/objects';
 import getRatesList from '.';
 
-const { Latest, Historical, Timeseries } = Endpoint;
+const { Latest, Historical, Timeseries } = EndpointObject;
 
 const date1: string = '2022-03-30';
 const date2: string = '2022-03-31';

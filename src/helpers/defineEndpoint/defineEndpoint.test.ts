@@ -1,7 +1,7 @@
-import { Endpoint } from '../../typescript/objects';
+import { EndpointObject } from '../../typescript/objects';
 import defineEndpoint from '.';
 
-const { Latest, Historical, Timeseries } = Endpoint;
+const { Latest, Historical, Timeseries } = EndpointObject;
 
 const date = new Date().toString();
 

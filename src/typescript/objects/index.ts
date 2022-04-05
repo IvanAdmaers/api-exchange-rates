@@ -1,4 +1,4 @@
-export const Endpoint = {
+export const EndpointObject = {
   Timeseries: 'timeseries',
   Historical: 'historical',
   Latest: 'latest',
