@@ -1,16 +1,26 @@
+import { Endpoint } from '../../typescript/objects';
+
 /**
  * This function defines an endpoint
  */
-const defineEndpoint = ({ startDate, endDate, date }) => {
+const defineEndpoint = ({
+  startDate,
+  endDate,
+  date,
+}: {
+  startDate?: Date;
+  endDate?: Date;
+  date?: Date;
+}) => {
   if (startDate && endDate) {
-    return 'timeseries';
+    return Endpoint.Timeseries;
   }
 
   if (date) {
-    return 'historical';
+    return Endpoint.Historical;
   }
 
-  return 'latest';
+  return Endpoint.Latest;
 };
 
 export default defineEndpoint;
