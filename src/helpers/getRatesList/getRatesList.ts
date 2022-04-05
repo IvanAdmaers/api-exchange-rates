@@ -33,7 +33,7 @@ const getRatesList = ({
         throw new Error('lastRatesDate is not set');
       }
 
-      const formattedLastRatesDate = formatDate(lastRatesDate);
+      const formattedLastRatesDate: string = formatDate(lastRatesDate);
 
       return getLatestRates(rates, formattedLastRatesDate);
     }
@@ -43,7 +43,7 @@ const getRatesList = ({
         throw new Error('date is not set');
       }
 
-      const formattedDate = formatDate(date);
+      const formattedDate: string = formatDate(date);
 
       return getHistoricalRates(rates, formattedDate);
     }

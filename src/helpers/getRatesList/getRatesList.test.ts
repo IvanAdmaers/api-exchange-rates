@@ -1,13 +1,14 @@
+import { RatesListInterface } from '../../typescript/interfaces';
 import { Endpoint } from '../../typescript/objects';
 import getRatesList from '.';
 
 const { Latest, Historical, Timeseries } = Endpoint;
 
-const date1 = '2022-03-30';
-const date2 = '2022-03-31';
-const date3 = '2022-04-01';
+const date1: string = '2022-03-30';
+const date2: string = '2022-03-31';
+const date3: string = '2022-04-01';
 
-const rates = {
+const rates: RatesListInterface = {
   [date1]: {
     AUD: 1.331,
     CAD: 1.248,
@@ -33,7 +34,7 @@ const rates = {
 
 describe('getRatesList', () => {
   it(`should return a correct result for the ${Latest} endpoint`, () => {
-    const date = date1;
+    const date: string = date1;
 
     expect(
       getRatesList({ rates, endpoint: Latest, lastRatesDate: date })
@@ -41,7 +42,7 @@ describe('getRatesList', () => {
   });
 
   it(`should return a correct result for the ${Historical} endpoint`, () => {
-    const date = date2;
+    const date: string = date2;
 
     expect(getRatesList({ rates, endpoint: Historical, date })).toEqual(
       rates[date]
@@ -49,6 +50,11 @@ describe('getRatesList', () => {
   });
 
   it(`should return a correct result for the ${Timeseries} endpoint`, () => {
+    const output: RatesListInterface = {
+      [date2]: { ...rates[date2] },
+      [date3]: { ...rates[date3] },
+    };
+
     expect(
       getRatesList({
         rates,
@@ -56,6 +62,6 @@ describe('getRatesList', () => {
         startDate: date2,
         endDate: date3,
       })
-    ).toEqual({ [date2]: { ...rates[date2] }, [date3]: { ...rates[date3] } });
+    ).toEqual(output);
   });
 });
