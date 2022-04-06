@@ -4,14 +4,14 @@ import {
 } from '../../typescript/interfaces';
 import getLatestRates from '.';
 
-const date = '2022-04-06';
+const date = '2022-04-05';
 
 const rates: RatesListInterface = {
   [date]: {
-    AUD: 1.331,
-    CAD: 1.249,
-    EUR: 0.908,
-    GBP: 0.762,
+    AUD: 1.33,
+    CAD: 1.244,
+    EUR: 0.911,
+    GBP: 0.761,
     USD: 1,
   },
 };
