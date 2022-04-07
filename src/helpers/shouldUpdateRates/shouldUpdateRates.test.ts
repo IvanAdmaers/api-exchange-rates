@@ -40,9 +40,8 @@ describe('shouldUpdateRates', () => {
   it('should return true when a rates cache file is outdated', async () => {
     const ratesCacheUpdateTimeInMilliseconds: number =
       RATES_CACHE_UPDATE_TIME_IN_MINUTES * 60000;
-    const oneMinuteInMilliseconds: number = 1 * 60000;
     const fileLastModification: number =
-      Date.now() - ratesCacheUpdateTimeInMilliseconds - oneMinuteInMilliseconds;
+      Date.now() - ratesCacheUpdateTimeInMilliseconds;
 
     mock({
       [RATES_CACHE_PATH_TO_FOLDER]: {
