@@ -4,7 +4,7 @@ const { RATES_CACHE_PATH, RATES_PLUG } = require('../../../constants');
 
 /**
  * This function sets a plug for rates
- * 
+ *
  * @async
  * @returns {<Promise>undefined}
  */

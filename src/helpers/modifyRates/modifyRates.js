@@ -29,7 +29,8 @@ const modifyRates = ({ rates, base, symbols, amount, isTimeseries }) => {
       TO_FIXED_DEFAULT_VALUE
     );
 
-    const sortedByAlphabetically = sortObjectAlphabetically(modifiedWithToFixed);
+    const sortedByAlphabetically =
+      sortObjectAlphabetically(modifiedWithToFixed);
 
     return sortedByAlphabetically;
   };
