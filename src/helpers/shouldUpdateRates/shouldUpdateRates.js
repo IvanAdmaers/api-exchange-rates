@@ -25,7 +25,7 @@ const shouldUpdateRates = async () => {
   const difference = Date.now() - ratesMeta.mtimeMs;
   const minutes = Math.round(difference / 60000);
 
-  if (minutes > RATES_CACHE_UPDATE_TIME_IN_MINUTES) {
+  if (minutes >= RATES_CACHE_UPDATE_TIME_IN_MINUTES) {
     return true;
   }
 
