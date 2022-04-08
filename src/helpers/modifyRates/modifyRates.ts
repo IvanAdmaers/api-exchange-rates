@@ -1,4 +1,8 @@
 import {
+  RatesListInterface,
+  RatesInterface,
+} from '../../typescript/interfaces';
+import {
   modifyWithBase,
   modifyWithSymbols,
   modifyWithAmount,
@@ -11,39 +15,54 @@ import { TO_FIXED_DEFAULT_VALUE } from '../../constants';
 /**
  * This function modifies rates. Call order: modifyWithBase => modifyWithSymbols => modifyWithAmount => sortObjectAlphabetically
  */
-const modifyRates = ({ rates, base, symbols, amount, isTimeseries }) => {
-  const doModify = (ratesItem) => {
-    const modifiedWithBase = modifyWithBase(base, ratesItem);
+const modifyRates = ({
+  rates,
+  base,
+  symbols,
+  amount,
+  isTimeseries,
+}: {
+  rates: RatesListInterface | RatesInterface;
+  base?: string;
+  symbols?: string;
+  amount?: number;
+  isTimeseries?: boolean;
+}) => {
+  const doModify = (ratesItem: RatesInterface) => {
+    const modifiedWithBase: RatesInterface = modifyWithBase(base, ratesItem);
 
-    const modifiedWithSymbols = modifyWithSymbols(symbols, modifiedWithBase);
+    const modifiedWithSymbols: RatesInterface = modifyWithSymbols(
+      symbols,
+      modifiedWithBase
+    );
 
-    const paramAmount = amount ? +amount : 1;
+    const paramAmount: number = amount ? +amount : 1;
 
-    const modifiedWithAmount = modifyWithAmount(
+    const modifiedWithAmount: RatesInterface = modifyWithAmount(
       paramAmount,
       modifiedWithSymbols
     );
 
-    const modifiedWithToFixed = modifyWithToFixed(
+    const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
       modifiedWithAmount,
       TO_FIXED_DEFAULT_VALUE
     );
 
-    const sortedByAlphabetically =
+    const sortedByAlphabetically: object =
       sortObjectAlphabetically(modifiedWithToFixed);
 
-    return sortedByAlphabetically;
+    return sortedByAlphabetically as RatesInterface;
   };
 
   if (!isTimeseries) {
-    return doModify(rates);
+    return doModify(rates as RatesInterface);
   }
 
-  const result = {};
-  const keys = Object.entries(rates);
+  const result: RatesListInterface = {};
+  const entries: Array<object> = Object.entries(rates);
 
-  keys.forEach(([date, value]) => {
-    const composed = doModify(value);
+  entries.forEach(([date, value]: [string, RatesInterface]) => {
+    const composed: RatesInterface = doModify(value);
 
     result[date] = composed;
   });
