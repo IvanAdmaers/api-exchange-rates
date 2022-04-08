@@ -37,7 +37,9 @@ const start = async () => {
     const shouldUpdate = await shouldUpdateRates();
 
     if (shouldUpdate) {
+      console.info('Rates are updating...');
       await setRates();
+      console.info('Rates have been updated');
     }
 
     cron();
