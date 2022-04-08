@@ -52,7 +52,7 @@ class BankAPIService {
       'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml';
   }
 
-  get base() {
+  getBase() {
     return this.#base;
   }
 
