@@ -2,7 +2,7 @@
   "name": "api-exchange-rates",
   "version": "0.0.3-beta.0",
   "description": "Live exchange rates API",
-  "main": "app.js",
+  "main": "src/app.ts",
   "type": "commonjs",
   "private": false,
   "scripts": {
