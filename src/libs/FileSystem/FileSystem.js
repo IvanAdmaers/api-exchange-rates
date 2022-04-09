@@ -28,6 +28,18 @@ class FileSystem {
 
     return true;
   }
+
+  /**
+   * Change the file system timestamps of the object referenced by path
+   *
+   * @param {string} path - Path to file
+   * @param {Date} atime - Atime
+   * @param {Date} mtime - Mtime
+   * @returns {<Promise>undefined}
+   */
+  async utimes(path, atime, mtime) {
+    await fs.utimes(path, atime, mtime);
+  }
 }
 
 export default new FileSystem();
