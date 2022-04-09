@@ -42,7 +42,6 @@
     "dotenv": "16.0.0",
     "express": "4.17.2",
     "memfs": "3.4.1",
-    "mock-fs": "5.1.2",
     "node-cron": "3.0.0",
     "node-fetch": "^2.6.7",
     "xml-js": "1.6.11"
