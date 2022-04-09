@@ -6,6 +6,7 @@ import {
   RATES_CACHE_PATH,
   DEFAULT_BASE,
   TO_FIXED_DEFAULT_VALUE,
+  LAST_RATES_DATE_KEY,
 } from '../../constants';
 
 /**
@@ -36,7 +37,10 @@ const setRates = async () => {
     rates[key] = modifiedWithToFixed;
   });
 
-  const ratesJSON = JSON.stringify({ rates, lastRatesDate });
+  const ratesJSON = JSON.stringify({
+    rates,
+    [LAST_RATES_DATE_KEY]: lastRatesDate,
+  });
 
   await FileSystem.writeFile(RATES_CACHE_PATH, ratesJSON);
 };
