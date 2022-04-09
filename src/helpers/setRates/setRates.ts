@@ -1,5 +1,8 @@
+import {
+  RatesListInterface,
+  RatesInterface,
+} from '../../typescript/interfaces';
 import BankAPIService from '../../services/BankAPIService';
-
 import FileSystem from '../../libs/FileSystem';
 import { modifyWithBase, modifyWithToFixed } from '../../utills';
 import {
@@ -12,32 +15,35 @@ import {
 /**
  * This function update rates
  */
-const setRates = async () => {
-  const ratesList = await BankAPIService.historical();
-  const ratesBase = BankAPIService.getBase();
+const setRates = async (): Promise<void> => {
+  // TODO: add the type `RatesListInterface` below
+  const ratesList: object = await BankAPIService.historical();
+  const ratesBase: string = BankAPIService.getBase();
 
-  const rates = {};
-  let lastRatesDate = null;
+  const rates: RatesListInterface = {};
+  let lastRatesDate: string | null = null;
 
-  Object.entries(ratesList).forEach(([key, value], index) => {
-    if (index === 0) {
-      lastRatesDate = key;
+  Object.entries(ratesList).forEach(
+    ([key, value]: [string, RatesInterface], index: number) => {
+      if (index === 0) {
+        lastRatesDate = key;
+      }
+
+      const modifiedWithBase: RatesInterface = modifyWithBase(DEFAULT_BASE, {
+        ...value,
+        [ratesBase]: 1,
+      });
+
+      const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
+        modifiedWithBase,
+        TO_FIXED_DEFAULT_VALUE
+      );
+
+      rates[key] = modifiedWithToFixed;
     }
+  );
 
-    const modifiedWithBase = modifyWithBase(DEFAULT_BASE, {
-      ...value,
-      [ratesBase]: 1,
-    });
-
-    const modifiedWithToFixed = modifyWithToFixed(
-      modifiedWithBase,
-      TO_FIXED_DEFAULT_VALUE
-    );
-
-    rates[key] = modifiedWithToFixed;
-  });
-
-  const ratesJSON = JSON.stringify({
+  const ratesJSON: string = JSON.stringify({
     rates,
     [LAST_RATES_DATE_KEY]: lastRatesDate,
   });
