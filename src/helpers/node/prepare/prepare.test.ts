@@ -19,8 +19,8 @@ describe('prepare', () => {
   it('should create a plug rates file', async () => {
     await prepare();
 
-    const file = await FileSystem.readFile(RATES_CACHE_PATH);
-    const fileContent = file.toString();
+    const file: Buffer = await FileSystem.readFile(RATES_CACHE_PATH);
+    const fileContent: string = file.toString();
 
     expect(fileContent).toBe(RATES_PLUG);
   });
