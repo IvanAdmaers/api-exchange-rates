@@ -9,8 +9,10 @@ import {
 /**
  * This function checks should update rates data
  */
-const shouldUpdateRates = async () => {
-  const ratesCacheExists = await FileSystem.fileExists(RATES_CACHE_PATH);
+const shouldUpdateRates = async (): Promise<boolean> => {
+  const ratesCacheExists: boolean = await FileSystem.fileExists(
+    RATES_CACHE_PATH
+  );
 
   if (!ratesCacheExists) {
     return true;
@@ -22,8 +24,8 @@ const shouldUpdateRates = async () => {
     return true;
   }
 
-  const difference = Date.now() - ratesMeta.mtimeMs;
-  const minutes = Math.round(difference / 60000);
+  const difference: number = Date.now() - ratesMeta.mtimeMs;
+  const minutes: number = Math.round(difference / 60000);
 
   if (minutes >= RATES_CACHE_UPDATE_TIME_IN_MINUTES) {
     return true;
