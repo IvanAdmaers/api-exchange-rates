@@ -9,7 +9,7 @@
     "dev": "nodemon build/index.js",
     "webpack:dev": "webpack --mode development",
     "webpack:build": "webpack --mode production",
-    "lint": "eslint src/",
+    "lint:check": "eslint src/",
     "test": "jest",
     "prettier:check": "prettier --check \"src\"",
     "prettier:fix": "prettier --write \"src\"",
