@@ -1,4 +1,4 @@
-import APIError from '../exceptions/APIError';
+import { APIError } from '../exceptions';
 
 const notFoundHandlerMiddleware = () => (req, res, next) =>
   next(APIError.notFound());
