@@ -2,7 +2,7 @@ import {
   RatesListInterface,
   RatesInterface,
 } from '../../typescript/interfaces';
-import BankAPIService from '../../services/BankAPIService';
+import { BankAPIService } from '../../services';
 import FileSystem from '../../libs/FileSystem';
 import { modifyWithBase, modifyWithToFixed } from '../../utills';
 import {

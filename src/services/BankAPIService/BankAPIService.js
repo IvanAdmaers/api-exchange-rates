@@ -1,4 +1,4 @@
-import { XMLToObject, doFetch } from '../utills/index';
+import { XMLToObject, doFetch } from '../../utills';
 
 const getLatestData = (list = {}) => {
   const rates = {};
