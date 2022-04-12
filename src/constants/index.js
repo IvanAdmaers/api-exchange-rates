@@ -11,6 +11,7 @@ const RATES_PLUG = '{}';
 const TO_FIXED_DEFAULT_VALUE = 6;
 const LAST_RATES_DATE_KEY = 'lastRatesDate';
 const RATES_MEMORY_KEY = 'rates';
+const LAST_RATES_DATE_MEMORY_KEY = 'lastRatesDate';
 
 module.exports = {
   DEFAULT_BASE,
@@ -22,4 +23,5 @@ module.exports = {
   TO_FIXED_DEFAULT_VALUE,
   LAST_RATES_DATE_KEY,
   RATES_MEMORY_KEY,
+  LAST_RATES_DATE_MEMORY_KEY,
 };
