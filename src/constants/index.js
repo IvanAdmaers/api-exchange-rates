@@ -10,7 +10,7 @@ const RATES_CACHE_UPDATE_TIME_IN_MINUTES = 60;
 const RATES_PLUG = '{}';
 const TO_FIXED_DEFAULT_VALUE = 6;
 const LAST_RATES_DATE_KEY = 'lastRatesDate';
-const RATES_CACHE_KEY = 'rates';
+const RATES_MEMORY_KEY = 'rates';
 
 module.exports = {
   DEFAULT_BASE,
@@ -21,5 +21,5 @@ module.exports = {
   RATES_PLUG,
   TO_FIXED_DEFAULT_VALUE,
   LAST_RATES_DATE_KEY,
-  RATES_CACHE_KEY,
+  RATES_MEMORY_KEY,
 };
