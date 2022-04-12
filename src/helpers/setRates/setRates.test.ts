@@ -1,23 +1,17 @@
-import { vol, fs } from 'memfs';
+import memory from 'memory-cache-pro';
 import {
   RatesListInterface,
   RatesInterface,
 } from '../../typescript/interfaces';
 import { BankAPIService } from '../../services';
-import { FileSystem } from '../../libs';
 import { modifyWithBase, modifyWithToFixed } from '../../utills';
 import setRates from '.';
 import {
-  RATES_CACHE_PATH_TO_FOLDER,
-  RATES_CACHE_PATH,
-  LAST_RATES_DATE_KEY,
   DEFAULT_BASE,
   TO_FIXED_DEFAULT_VALUE,
+  RATES_MEMORY_KEY,
+  LAST_RATES_DATE_MEMORY_KEY,
 } from '../../constants';
-
-vol.mkdirSync(RATES_CACHE_PATH_TO_FOLDER, { recursive: true });
-
-jest.mock('fs/promises', () => fs.promises);
 
 const date: string = '2022-04-08';
 const rates: RatesListInterface = {
@@ -29,11 +23,8 @@ jest
   .mockReturnValue(Promise.resolve(rates));
 
 describe('setRates', () => {
-  it('should set rates correctly', async () => {
+  it('should put rates and a last rates date to the memory', async () => {
     await setRates();
-
-    const file: Buffer = await FileSystem.readFile(RATES_CACHE_PATH);
-    const fileContent: string = file.toString();
 
     const expectRates: RatesListInterface = {};
 
@@ -50,11 +41,7 @@ describe('setRates', () => {
       expectRates[key] = modifiedWithToFixed;
     });
 
-    const resultJSON: string = JSON.stringify({
-      rates: expectRates,
-      [LAST_RATES_DATE_KEY]: date,
-    });
-
-    expect(fileContent).toBe(resultJSON);
+    expect(memory.get(RATES_MEMORY_KEY)).toEqual(expectRates);
+    expect(memory.get(LAST_RATES_DATE_MEMORY_KEY)).toEqual(date);
   });
 });

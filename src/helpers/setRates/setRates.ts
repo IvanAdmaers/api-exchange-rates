@@ -1,15 +1,15 @@
+import cache from 'memory-cache-pro';
 import {
   RatesListInterface,
   RatesInterface,
 } from '../../typescript/interfaces';
 import { BankAPIService } from '../../services';
-import FileSystem from '../../libs/FileSystem';
 import { modifyWithBase, modifyWithToFixed } from '../../utills';
 import {
-  RATES_CACHE_PATH,
   DEFAULT_BASE,
   TO_FIXED_DEFAULT_VALUE,
-  LAST_RATES_DATE_KEY,
+  RATES_MEMORY_KEY,
+  LAST_RATES_DATE_MEMORY_KEY,
 } from '../../constants';
 
 /**
@@ -43,12 +43,8 @@ const setRates = async (): Promise<void> => {
     }
   );
 
-  const ratesJSON: string = JSON.stringify({
-    rates,
-    [LAST_RATES_DATE_KEY]: lastRatesDate,
-  });
-
-  await FileSystem.writeFile(RATES_CACHE_PATH, ratesJSON);
+  cache.put(RATES_MEMORY_KEY, rates);
+  cache.put(LAST_RATES_DATE_MEMORY_KEY, lastRatesDate);
 };
 
 export default setRates;
