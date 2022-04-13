@@ -2,55 +2,65 @@ import path from 'path';
 import dotenv from 'dotenv';
 import express from 'express';
 
-// Routers
-import exchangeRatesRouter from './routes/exchangeRatesRouter';
-
-// Middlewares
-import notFoundHandlerMiddleware from './middlewares/notFoundHandlerMiddleware';
-import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
-
-// Libs
-import { cron } from './libs';
-
-// Helpers
-import { shouldUpdateRates, setRates } from './helpers';
-
 dotenv.config({
   path: path.resolve('.env'),
 });
 
-const app = express();
+(async () => {
+  // Helpers
+  const { setRates } = await import('./helpers');
 
-// Routes
-app.use('/', exchangeRatesRouter);
+  const init = async (): Promise<void> => {
+    try {
+      const isProduction = process.env.NODE_ENV === 'production';
+      const options = { doCacheRates: false, setRatesFromCache: false };
 
-// 404
-app.use(notFoundHandlerMiddleware());
+      if (!isProduction) {
+        options.doCacheRates = true;
+        options.setRatesFromCache = true;
+      }
 
-// Errors
-app.use(errorHandlerMiddleware());
-
-const PORT: number = process.env.PORT ? +process.env.PORT : 3000;
-
-const start = async () => {
-  try {
-    const shouldUpdate = await shouldUpdateRates();
-
-    if (shouldUpdate) {
-      console.info('Rates are updating...');
-      await setRates();
-      console.info('Rates have been updated');
+      console.info('Rates are set...');
+      await setRates(options);
+      console.info('Rates have been set');
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
     }
+  };
 
-    cron();
+  await init();
 
-    app.listen(PORT, () => {
-      console.info(`🚀 Server is running on PORT ${PORT} 🚀`);
-    });
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-};
+  const app = express();
 
-start();
+  // Routes
+  const exchangeRatesRouter = await import('./routes/exchangeRatesRouter').then(
+    (module) => module.default
+  );
+
+  app.use('/', exchangeRatesRouter);
+
+  // Middlewares
+  const [notFoundHandlerMiddleware, errorHandlerMiddleware] = await Promise.all(
+    [
+      import('./middlewares/notFoundHandlerMiddleware').then(
+        (module) => module.default
+      ),
+      import('./middlewares/errorHandlerMiddleware').then(
+        (module) => module.default
+      ),
+    ]
+  );
+
+  // 404
+  app.use(notFoundHandlerMiddleware());
+
+  // Errors
+  app.use(errorHandlerMiddleware());
+
+  const PORT: number = process.env.PORT ? +process.env.PORT : 3000;
+
+  app.listen(PORT, () => {
+    console.info(`🚀 Server is running on PORT ${PORT} 🚀`);
+  });
+})();
