@@ -6,7 +6,7 @@
   "type": "commonjs",
   "private": false,
   "scripts": {
-    "dev": "nodemon build/index.js",
+    "dev": "nodemon -e ts,js build/index.js",
     "webpack:dev": "webpack --mode development",
     "webpack:build": "webpack --mode production",
     "lint:check": "eslint src/",
