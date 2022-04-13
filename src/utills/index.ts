@@ -9,6 +9,7 @@ import formatDate from './formatDate';
 import getDatesInRange from './getDatesInRange';
 import toFixed from './toFixed';
 import modifyWithToFixed from './modifyWithToFixed';
+import isProduction from './isProduction';
 
 export {
   getErrorBody,
@@ -22,4 +23,5 @@ export {
   getDatesInRange,
   toFixed,
   modifyWithToFixed,
+  isProduction,
 };
