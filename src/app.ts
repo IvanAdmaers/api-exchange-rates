@@ -10,9 +10,12 @@ dotenv.config({
   // Helpers
   const { setRates } = await import('./helpers');
 
+  // Utills
+  const { isProduction: isProductionMode } = await import('./utills');
+
   const init = async (): Promise<void> => {
     try {
-      const isProduction = process.env.NODE_ENV === 'production';
+      const isProduction = isProductionMode();
       const options = { doCacheRates: false, setRatesFromCache: false };
 
       if (!isProduction) {
