@@ -8,6 +8,14 @@
 
 2. npm run dev
 
-## Deploy
+## Production
 
-TODO
+1. 
+```bash
+npm run webpack:build
+```
+
+2. 
+```bash
+NODE_ENV=production node build/index.js
+```
