@@ -1,8 +1,13 @@
-import { modifyRates, getRatesList, defineEndpoint } from '../helpers';
+import memory from 'memory-cache-pro';
 
-import { rates as ratesList, lastRatesDate } from '../cache/rates.json';
+import { modifyRates, getRatesList, defineEndpoint } from '../helpers';
+import { RATES_MEMORY_KEY, LAST_RATES_DATE_MEMORY_KEY } from '../constants';
+
+const ratesList = memory.get(RATES_MEMORY_KEY);
+const lastRatesDate = memory.get(LAST_RATES_DATE_MEMORY_KEY);
 
 export const rates = async (req, res) => {
+
   const {
     base,
     symbols,
