@@ -21,8 +21,8 @@ import {
  */
 const setRates = async ({
   onRatesExpiredCallback = setRates,
-  doCacheRates,
-  setRatesFromCache,
+  doCacheRates = false,
+  setRatesFromCache = false,
 }: {
   onRatesExpiredCallback?: Function;
   doCacheRates?: boolean;
