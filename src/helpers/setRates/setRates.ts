@@ -10,12 +10,17 @@ import {
   TO_FIXED_DEFAULT_VALUE,
   RATES_MEMORY_KEY,
   LAST_RATES_DATE_MEMORY_KEY,
+  RATES_CACHE_UPDATE_TIME_IN_MINUTES,
 } from '../../constants';
 
 /**
  * This function update rates
  */
-const setRates = async (): Promise<void> => {
+const setRates = async ({
+  onRatesExpiredCallback = setRates,
+}: {
+  onRatesExpiredCallback?: Function;
+} = {}): Promise<void> => {
   // TODO: add the type `RatesListInterface` below
   const ratesList: object = await BankAPIService.historical();
   const ratesBase: string = BankAPIService.getBase();
@@ -43,7 +48,14 @@ const setRates = async (): Promise<void> => {
     }
   );
 
-  cache.put(RATES_MEMORY_KEY, rates);
+  const cacheTimeInMilliseconds = RATES_CACHE_UPDATE_TIME_IN_MINUTES * 60_000;
+
+  cache.put(
+    RATES_MEMORY_KEY,
+    rates,
+    cacheTimeInMilliseconds,
+    onRatesExpiredCallback
+  );
   cache.put(LAST_RATES_DATE_MEMORY_KEY, lastRatesDate);
 };
 
