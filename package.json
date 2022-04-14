@@ -48,5 +48,8 @@
     "node-cron": "3.0.0",
     "node-fetch": "2.6.7",
     "xml-js": "1.6.11"
+  },
+  "engines": {
+    "node": ">=10"
   }
 }
