@@ -1,13 +1,13 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
-const getWebpackConfig = (env) => {
-  const isProduction = env.WEBPACK_BUILD;
+const getWebpackConfig = (env, argv) => {
+  const isProduction = argv.mode === 'production';
   const mode = isProduction ? 'production' : 'development';
 
   return {
     entry: path.resolve('./src/app.ts'),
-    watch: isProduction,
+    watch: !isProduction,
     mode,
     target: 'node',
     output: {
