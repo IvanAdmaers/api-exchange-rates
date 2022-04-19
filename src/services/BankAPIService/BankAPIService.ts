@@ -1,13 +1,29 @@
+import {
+  RatesInterface,
+  RatesListInterface,
+} from '../../typescript/interfaces';
 import { XMLToObject, doFetch } from '../../utills';
 
-const getLatestData = (list = {}) => {
-  const rates = {};
+interface GetLatestDataInterface {
+  rates: RatesInterface;
+  date: string;
+}
 
-  const date = list['gesmes:Envelope'].Cube.Cube._attributes.time;
+type RatesItemType = {
+  _attributes: {
+    currency: string;
+    rate: string;
+  };
+};
 
-  const exchangeRates = list['gesmes:Envelope'].Cube.Cube.Cube;
+const getLatestData = (list: object): GetLatestDataInterface => {
+  const rates: RatesInterface = {};
 
-  exchangeRates.forEach((item) => {
+  const date: string = list['gesmes:Envelope'].Cube.Cube._attributes.time;
+
+  const exchangeRates: Array<object> = list['gesmes:Envelope'].Cube.Cube.Cube;
+
+  exchangeRates.forEach((item: RatesItemType) => {
     const { currency, rate } = item._attributes;
 
     rates[currency] = +rate;
@@ -16,12 +32,19 @@ const getLatestData = (list = {}) => {
   return { rates, date };
 };
 
-const getHistoricalData = (list = {}) => {
-  const rates = {};
+const getHistoricalData = (list: object): RatesListInterface => {
+  const rates: RatesListInterface = {};
 
-  const exchangeRates = list['gesmes:Envelope'].Cube.Cube;
+  const exchangeRates: Array<object> = list['gesmes:Envelope'].Cube.Cube;
 
-  exchangeRates.forEach((item) => {
+  type ItemType = {
+    _attributes: {
+      time: string;
+    };
+    Cube: Array<RatesItemType>;
+  };
+
+  exchangeRates.forEach((item: ItemType) => {
     const { _attributes, Cube } = item;
     const { time } = _attributes;
 
@@ -38,31 +61,27 @@ const getHistoricalData = (list = {}) => {
 };
 
 class BankAPIService {
-  #base;
+  private readonly base: string = 'EUR';
 
-  #latestURL;
+  private readonly latestURL: string =
+    'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
 
-  #historicalURL;
+  private readonly historicalURL: string =
+    'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml';
 
-  constructor() {
-    this.#base = 'EUR';
-    this.#latestURL =
-      'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
-    this.#historicalURL =
-      'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml';
+  public getBase(): string {
+    return this.base;
   }
 
-  getBase() {
-    return this.#base;
-  }
+  private async getExchangeRates(
+    type: 'latest' | 'historical'
+  ): Promise<GetLatestDataInterface | RatesListInterface> {
+    const isLatest: boolean = type === 'latest';
 
-  async #getExchangeRates(type = '') {
-    const isLatest = type === 'latest';
+    const URL: string = isLatest ? this.latestURL : this.historicalURL;
 
-    const URL = isLatest ? this.#latestURL : this.#historicalURL;
-
-    const exchangeRatesXML = await doFetch(URL);
-    const exchangeRatesObject = XMLToObject(exchangeRatesXML);
+    const exchangeRatesXML: string = await doFetch(URL);
+    const exchangeRatesObject: object = XMLToObject(exchangeRatesXML);
 
     if (isLatest) {
       return getLatestData(exchangeRatesObject);
@@ -71,14 +90,18 @@ class BankAPIService {
     return getHistoricalData(exchangeRatesObject);
   }
 
-  async latest() {
-    const exchangeRates = await this.#getExchangeRates('latest');
+  public async latest(): Promise<GetLatestDataInterface> {
+    const exchangeRates = (await this.getExchangeRates(
+      'latest'
+    )) as GetLatestDataInterface;
 
     return exchangeRates;
   }
 
-  async historical() {
-    const exchangeRates = await this.#getExchangeRates('historical');
+  public async historical(): Promise<RatesListInterface> {
+    const exchangeRates: RatesListInterface = (await this.getExchangeRates(
+      'historical'
+    )) as RatesListInterface;
 
     return exchangeRates;
   }
