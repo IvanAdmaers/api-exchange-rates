@@ -1,30 +1,36 @@
 class APIError {
-  constructor(code, message) {
+  public readonly code: number;
+
+  public readonly message: string;
+
+  constructor(code: number, message: string) {
     this.code = code;
     this.message = message;
   }
 
-  static badRequest(msg = 'Some error') {
+  public static badRequest(msg: string = 'Some error'): APIError {
     return new APIError(400, msg);
   }
 
-  static unauthorized(msg = 'User unauthorized') {
+  public static unauthorized(msg: string = 'User unauthorized'): APIError {
     return new APIError(401, msg);
   }
 
-  static forbidden(msg = 'Action forbidden') {
+  public static forbidden(msg: string = 'Action forbidden'): APIError {
     return new APIError(403, msg);
   }
 
-  static notFound(msg = 'Not found') {
+  public static notFound(msg: string = 'Not found'): APIError {
     return new APIError(404, msg);
   }
 
-  static unprocessableEntity(msg = 'Some params are incorrect') {
+  public static unprocessableEntity(
+    msg: string = 'Some params are incorrect'
+  ): APIError {
     return new APIError(422, msg);
   }
 
-  static internal(msg = 'Something went wrong') {
+  public static internal(msg: string = 'Something went wrong'): APIError {
     return new APIError(500, msg);
   }
 }
