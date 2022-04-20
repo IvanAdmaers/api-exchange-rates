@@ -28,8 +28,7 @@ const setRates = async ({
   doCacheRates?: boolean;
   setRatesFromCache?: boolean;
 } = {}): Promise<void> => {
-  // TODO: add the type `RatesListInterface` below
-  const ratesList = await getRates({ setRatesFromCache });
+  const ratesList: RatesListInterface = await getRates({ setRatesFromCache });
   const ratesBase: string = BankAPIService.getBase();
 
   const rates: RatesListInterface = {};

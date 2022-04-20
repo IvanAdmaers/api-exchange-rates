@@ -1,3 +1,4 @@
+import { RatesListInterface } from '../../typescript/interfaces';
 import { FileSystem } from '../../libs';
 import { BankAPIService } from '../../services';
 import { RATES_CACHE_PATH } from '../../constants';
@@ -9,11 +10,11 @@ import { RATES_CACHE_PATH } from '../../constants';
  */
 const getRates = async ({
   setRatesFromCache,
-}: { setRatesFromCache?: boolean } = {}): Promise<object> => {
+}: { setRatesFromCache?: boolean } = {}): Promise<RatesListInterface> => {
   const cacheExists: boolean = await FileSystem.fileExists(RATES_CACHE_PATH);
 
   if (!setRatesFromCache || !cacheExists) {
-    const ratesList: object = await BankAPIService.historical();
+    const ratesList: RatesListInterface = await BankAPIService.historical();
 
     return ratesList;
   }
