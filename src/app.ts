@@ -2,6 +2,8 @@ import path from 'path';
 import dotenv from 'dotenv';
 import express from 'express';
 
+import { RATES_CACHE_UPDATE_TIME_IN_MINUTES } from './constants';
+
 dotenv.config({
   path: path.resolve('.env'),
 });
@@ -16,11 +18,20 @@ dotenv.config({
   const init = async (): Promise<void> => {
     try {
       const isProduction = isProductionMode();
-      const options = { doCacheRates: false, setRatesFromCache: false };
+
+      type Options = {
+        doCacheRates?: boolean;
+        setRatesFromCache?: boolean;
+        ratesCacheUpdateTimeInMinutes?: number;
+      };
+
+      const options: Options = {};
 
       if (!isProduction) {
         options.doCacheRates = true;
         options.setRatesFromCache = true;
+        options.ratesCacheUpdateTimeInMinutes =
+          RATES_CACHE_UPDATE_TIME_IN_MINUTES;
       }
 
       console.info('Rates are set...');
