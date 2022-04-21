@@ -3,6 +3,12 @@ import { FileSystem } from '../../libs';
 import { BankAPIService } from '../../services';
 import { RATES_CACHE_PATH } from '../../constants';
 
+const getRatesFromService = async (): Promise<RatesListInterface> => {
+  const ratesList: RatesListInterface = await BankAPIService.historical();
+
+  return ratesList;
+};
+
 /**
  * This function gets rates from service by default
  * If the `setRatesFromCache` is passed its trying to get rates from cache
@@ -11,10 +17,16 @@ import { RATES_CACHE_PATH } from '../../constants';
 const getRates = async ({
   setRatesFromCache,
 }: { setRatesFromCache?: boolean } = {}): Promise<RatesListInterface> => {
+  if (!setRatesFromCache) {
+    const ratesList: RatesListInterface = await getRatesFromService();
+
+    return ratesList;
+  }
+
   const cacheExists: boolean = await FileSystem.fileExists(RATES_CACHE_PATH);
 
-  if (!setRatesFromCache || !cacheExists) {
-    const ratesList: RatesListInterface = await BankAPIService.historical();
+  if (!cacheExists) {
+    const ratesList: RatesListInterface = await getRatesFromService();
 
     return ratesList;
   }
