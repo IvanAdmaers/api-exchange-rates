@@ -23,12 +23,17 @@ const setRates = async ({
   onRatesExpiredCallback = setRates,
   doCacheRates = false,
   setRatesFromCache = false,
+  ratesCacheUpdateTimeInMinutes = null,
 }: {
   onRatesExpiredCallback?: Function;
   doCacheRates?: boolean;
   setRatesFromCache?: boolean;
+  ratesCacheUpdateTimeInMinutes?: number | undefined | null;
 } = {}): Promise<void> => {
-  const ratesList: RatesListInterface = await getRates({ setRatesFromCache });
+  const ratesList: RatesListInterface = await getRates({
+    setRatesFromCache,
+    ratesCacheUpdateTimeInMinutes,
+  });
   const ratesBase: string = BankAPIService.getBase();
 
   const rates: RatesListInterface = {};
