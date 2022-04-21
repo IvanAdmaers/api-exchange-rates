@@ -95,14 +95,16 @@ describe('setRates', () => {
     expect(onRatesExpiredCallbackMock).toBeCalledTimes(0);
   });
 
-  it('should call getRates with `setRatesFromCache` = false', async () => {
+  it('should call getRates with `setRatesFromCache` = false and `ratesCacheUpdateTimeInMinutes` = null', async () => {
     await setRates();
-    expect(getRates).toHaveBeenCalledWith({ setRatesFromCache: false });
+    expect(getRates).toHaveBeenCalledWith({ setRatesFromCache: false, ratesCacheUpdateTimeInMinutes: null });
   });
 
-  it('should call getRates with `setRatesFromCache` = true', async () => {
-    await setRates({ setRatesFromCache: true });
-    expect(getRates).toHaveBeenCalledWith({ setRatesFromCache: true });
+  it('should call getRates with `setRatesFromCache` = true and `ratesCacheUpdateTimeInMinutes` = 60', async () => {
+    const ratesCacheUpdateTimeInMinutes = 60;
+
+    await setRates({ setRatesFromCache: true, ratesCacheUpdateTimeInMinutes });
+    expect(getRates).toHaveBeenCalledWith({ setRatesFromCache: true, ratesCacheUpdateTimeInMinutes });
   });
 
   it('should do cache of rates when `doCacheRates` = true', async () => {
