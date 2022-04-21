@@ -10,13 +10,20 @@ const getRatesFromService = async (): Promise<RatesListInterface> => {
 };
 
 /**
- * This function gets rates from service by default
- * If the `setRatesFromCache` is passed its trying to get rates from cache
- * If cache doesn't exist it gets rates from service
+ * This function gets rates from a service by default
+ * If the `setRatesFromCache` is true its trying to get rates from cache
+ * If cache doesn't exist it gets rates from a service
+ * If the `ratesCacheUpdateTimeInMinutes` is passed and rates cache is actual it returns cached rates. If not it'll return rates from a service
  */
+type Params = {
+  setRatesFromCache?: boolean;
+  ratesCacheUpdateTimeInMinutes?: number | undefined | null;
+};
+
 const getRates = async ({
   setRatesFromCache,
-}: { setRatesFromCache?: boolean } = {}): Promise<RatesListInterface> => {
+  ratesCacheUpdateTimeInMinutes,
+}: Params = {}): Promise<RatesListInterface> => {
   if (!setRatesFromCache) {
     const ratesList: RatesListInterface = await getRatesFromService();
 
@@ -29,6 +36,20 @@ const getRates = async ({
     const ratesList: RatesListInterface = await getRatesFromService();
 
     return ratesList;
+  }
+
+  if (ratesCacheUpdateTimeInMinutes) {
+    const ratesMeta = await FileSystem.getFileMeta(RATES_CACHE_PATH);
+
+    const ratesRelevanceTimeInMilliseconds: number =
+      ratesCacheUpdateTimeInMinutes * 60 * 1000;
+    const difference: number = Date.now() - ratesRelevanceTimeInMilliseconds;
+
+    if (difference >= ratesMeta.mtimeMs) {
+      const ratesList: RatesListInterface = await getRatesFromService();
+
+      return ratesList;
+    }
   }
 
   const cachedRates = await FileSystem.readFile(RATES_CACHE_PATH);
