@@ -1,6 +1,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Application } from 'express';
 
 import { RATES_CACHE_UPDATE_TIME_IN_MINUTES } from './constants';
 
@@ -45,7 +45,7 @@ dotenv.config({
 
   await init();
 
-  const app = express();
+  const app: Application = express();
 
   // Routes
   const exchangeRatesRouter = await import('./routes/exchangeRatesRouter').then(
