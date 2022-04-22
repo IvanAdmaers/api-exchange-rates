@@ -4,9 +4,7 @@
 
 **Make sure .env file is fill**
 
-1. npm run webpack:dev
-
-2. npm run dev
+1. npm run dev
 
 ## Production
 
