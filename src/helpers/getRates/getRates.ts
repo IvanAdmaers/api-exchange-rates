@@ -41,11 +41,10 @@ const getRates = async ({
   if (ratesCacheUpdateTimeInMinutes) {
     const ratesMeta = await FileSystem.getFileMeta(RATES_CACHE_PATH);
 
-    const ratesRelevanceTimeInMilliseconds: number =
-      ratesCacheUpdateTimeInMinutes * 60 * 1000;
-    const difference: number = Date.now() - ratesRelevanceTimeInMilliseconds;
+    const fileTimeInMinutes: number =
+      (Date.now() - ratesMeta.mtimeMs) / 1000 / 60;
 
-    if (difference >= ratesMeta.mtimeMs) {
+    if (fileTimeInMinutes >= ratesCacheUpdateTimeInMinutes) {
       const ratesList: RatesListInterface = await getRatesFromService();
 
       return ratesList;
