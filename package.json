@@ -7,7 +7,6 @@
   "private": false,
   "scripts": {
     "dev": "nodemon --config nodemon.json src/app.ts",
-    "webpack:dev": "webpack --mode development",
     "webpack:build": "webpack --mode production",
     "lint:check": "eslint src/",
     "test": "jest",
