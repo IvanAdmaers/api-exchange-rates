@@ -1,21 +1,21 @@
 import memory from 'memory-cache-pro';
 
 import { APIError } from '../exceptions';
-import { modifyRates, getRatesList, defineEndpoint } from '../helpers';
+import {
+  modifyRates,
+  getRatesList,
+  defineEndpoint,
+  getRequestInfo,
+} from '../helpers';
 import { RATES_MEMORY_KEY, LAST_RATES_DATE_MEMORY_KEY } from '../constants';
 
 const ratesList = memory.get(RATES_MEMORY_KEY);
 const lastRatesDate = memory.get(LAST_RATES_DATE_MEMORY_KEY);
 
 export const rates = async (req, res, next) => {
+  const { base, symbols, start_date: startDate, end_date: endDate } = req.query;
+  const amount = +req.query.amount;
 
-  const {
-    base,
-    symbols,
-    amount,
-    start_date: startDate,
-    end_date: endDate,
-  } = req.query;
   const { date } = req.params;
 
   const endpoint = defineEndpoint({ date, startDate, endDate });
@@ -42,5 +42,19 @@ export const rates = async (req, res, next) => {
     isTimeseries,
   });
 
-  return res.json({ rates: ratesData, endpoint });
+  const requestInfo = getRequestInfo({
+    endpoint,
+    lastRatesDate,
+    date,
+    startDate,
+    endDate,
+    symbols,
+    amount,
+    base,
+  });
+
+  return res.json({
+    ...requestInfo,
+    rates: ratesData,
+  });
 };
