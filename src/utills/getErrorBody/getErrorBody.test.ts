@@ -3,10 +3,10 @@ import getErrorBody from '.';
 describe('getErrorBody', () => {
   it('should return a correct result', () => {
     const code: number = 100;
-    const error: string = 'Something went wrong';
+    const info: string = 'Something went wrong';
 
-    const output: object = { success: false, code, error };
+    const output: object = { success: false, error: { code, info } };
 
-    expect(getErrorBody(code, error)).toEqual(output);
+    expect(getErrorBody(code, info)).toEqual(output);
   });
 });
