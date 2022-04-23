@@ -14,6 +14,9 @@ interface Params {
 
 interface Result extends Omit<Params, 'endpoint' | 'lastRatesDate'> {}
 
+/**
+ * This function gets a request information
+ */
 const getRequestInfo = ({
   endpoint,
   date,
