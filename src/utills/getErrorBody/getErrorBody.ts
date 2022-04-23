@@ -3,8 +3,10 @@
  */
 const getErrorBody = (code: number, errorText: string) => ({
   success: false,
-  code,
-  error: errorText,
+  error: {
+    code,
+    info: errorText,
+  },
 });
 
 export default getErrorBody;
