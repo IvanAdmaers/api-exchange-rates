@@ -6,6 +6,7 @@ import getTimeseriesRates from './getTimeseriesRates';
 import getRatesList from './getRatesList';
 import defineEndpoint from './defineEndpoint';
 import getRates from './getRates';
+import getRequestInfo from './getRequestInfo';
 
 export {
   setRates,
@@ -16,4 +17,5 @@ export {
   getRatesList,
   defineEndpoint,
   getRates,
+  getRequestInfo,
 };
