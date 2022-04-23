@@ -33,6 +33,10 @@ class APIError {
   public static internal(msg: string = 'Something went wrong'): APIError {
     return new APIError(500, msg);
   }
+
+  public static noResult(message: string = 'The current request did not return any results') {
+    return new APIError(106, message);
+  }
 }
 
 export default APIError;
