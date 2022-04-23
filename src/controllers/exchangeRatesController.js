@@ -1,12 +1,13 @@
 import memory from 'memory-cache-pro';
 
+import { APIError } from '../exceptions';
 import { modifyRates, getRatesList, defineEndpoint } from '../helpers';
 import { RATES_MEMORY_KEY, LAST_RATES_DATE_MEMORY_KEY } from '../constants';
 
 const ratesList = memory.get(RATES_MEMORY_KEY);
 const lastRatesDate = memory.get(LAST_RATES_DATE_MEMORY_KEY);
 
-export const rates = async (req, res) => {
+export const rates = async (req, res, next) => {
 
   const {
     base,
@@ -29,15 +30,17 @@ export const rates = async (req, res) => {
     endDate,
   });
 
-  const ratesData = !currentRatesList
-    ? null
-    : modifyRates({
-        rates: currentRatesList,
-        base,
-        symbols,
-        amount,
-        isTimeseries,
-      });
+  if (!currentRatesList) {
+    return next(APIError.noResult());
+  }
+
+  const ratesData = modifyRates({
+    rates: currentRatesList,
+    base,
+    symbols,
+    amount,
+    isTimeseries,
+  });
 
   return res.json({ rates: ratesData, endpoint });
 };
