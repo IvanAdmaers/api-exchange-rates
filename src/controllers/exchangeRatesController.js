@@ -7,13 +7,18 @@ import {
   defineEndpoint,
   getRequestInfo,
 } from '../helpers';
-import { RATES_MEMORY_KEY, LAST_RATES_DATE_MEMORY_KEY } from '../constants';
+import {
+  RATES_MEMORY_KEY,
+  LAST_RATES_DATE_MEMORY_KEY,
+  DEFAULT_BASE,
+} from '../constants';
 
 const ratesList = memory.get(RATES_MEMORY_KEY);
 const lastRatesDate = memory.get(LAST_RATES_DATE_MEMORY_KEY);
 
 export const rates = async (req, res, next) => {
-  const { base, symbols, start_date: startDate, end_date: endDate } = req.query;
+  const { symbols, start_date: startDate, end_date: endDate } = req.query;
+  const base = req.query.base ?? DEFAULT_BASE;
   const amount = +req.query.amount;
 
   const { date } = req.params;
