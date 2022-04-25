@@ -47,22 +47,26 @@ const ratesByDate: RatesInterface = rates[date1];
 
 describe('modifyRates', () => {
   it('should modify rates only with toFixed', () => {
-    expect(modifyRates({ rates: ratesByDate })).toEqual(ratesByDate);
+    expect(modifyRates({ base: DEFAULT_BASE, rates: ratesByDate })).toEqual(
+      ratesByDate
+    );
   });
 
   it('should modify timeseries rates only with toFixed', () => {
-    expect(modifyRates({ rates, isTimeseries: true })).toEqual(rates);
+    expect(
+      modifyRates({ base: DEFAULT_BASE, rates, isTimeseries: true })
+    ).toEqual(rates);
   });
 
   it('should modify rates with default base only with toFixed', () => {
-    expect(modifyRates({ rates: ratesByDate, base: DEFAULT_BASE })).toEqual(
+    expect(modifyRates({ base: DEFAULT_BASE, rates: ratesByDate })).toEqual(
       ratesByDate
     );
   });
 
   it('should modify timeseries rates with default base only with toFixed', () => {
     expect(
-      modifyRates({ rates, base: DEFAULT_BASE, isTimeseries: true })
+      modifyRates({ base: DEFAULT_BASE, rates, isTimeseries: true })
     ).toEqual(rates);
   });
 
@@ -74,7 +78,7 @@ describe('modifyRates', () => {
       TO_FIXED_DEFAULT_VALUE
     );
 
-    expect(modifyRates({ rates: ratesByDate, base })).toEqual(
+    expect(modifyRates({ base, rates: ratesByDate })).toEqual(
       modifiedWithToFixed
     );
   });
@@ -93,7 +97,7 @@ describe('modifyRates', () => {
       output[key] = ratesModifiedWithToFixed;
     });
 
-    expect(modifyRates({ rates, base, isTimeseries: true })).toEqual(output);
+    expect(modifyRates({ base, rates, isTimeseries: true })).toEqual(output);
   });
 
   it('should modify rates only with symbols and toFixed', () => {
@@ -103,9 +107,9 @@ describe('modifyRates', () => {
       ratesByDate
     );
 
-    expect(modifyRates({ rates: ratesByDate, symbols })).toEqual(
-      modifiedWithSymbols
-    );
+    expect(
+      modifyRates({ base: DEFAULT_BASE, rates: ratesByDate, symbols })
+    ).toEqual(modifiedWithSymbols);
   });
 
   it('should modify timeseries rates only with symbols and toFixed', () => {
@@ -116,7 +120,9 @@ describe('modifyRates', () => {
       output[key] = modifyWithSymbols(symbols, value);
     });
 
-    expect(modifyRates({ rates, symbols, isTimeseries: true })).toEqual(output);
+    expect(
+      modifyRates({ base: DEFAULT_BASE, rates, symbols, isTimeseries: true })
+    ).toEqual(output);
   });
 
   it('should modify rates only with amount and toFixed', () => {
@@ -130,9 +136,9 @@ describe('modifyRates', () => {
       TO_FIXED_DEFAULT_VALUE
     );
 
-    expect(modifyRates({ rates: ratesByDate, amount })).toEqual(
-      modifiedWithToFixed
-    );
+    expect(
+      modifyRates({ base: DEFAULT_BASE, rates: ratesByDate, amount })
+    ).toEqual(modifiedWithToFixed);
   });
 
   it('should modify timeseries rates only with amount and toFixed', () => {
@@ -152,7 +158,9 @@ describe('modifyRates', () => {
       output[key] = modifiedWithToFixed;
     });
 
-    expect(modifyRates({ rates, amount, isTimeseries: true })).toEqual(output);
+    expect(
+      modifyRates({ base: DEFAULT_BASE, rates, amount, isTimeseries: true })
+    ).toEqual(output);
   });
 
   it('should modify rates with each argument', () => {
@@ -174,7 +182,7 @@ describe('modifyRates', () => {
       TO_FIXED_DEFAULT_VALUE
     );
 
-    expect(modifyRates({ rates: ratesByDate, base, symbols, amount })).toEqual(
+    expect(modifyRates({ base, rates: ratesByDate, symbols, amount })).toEqual(
       modifiedWithToFixed
     );
   });
@@ -205,7 +213,7 @@ describe('modifyRates', () => {
     });
 
     expect(
-      modifyRates({ rates, base, symbols, amount, isTimeseries: true })
+      modifyRates({ base, rates, symbols, amount, isTimeseries: true })
     ).toEqual(output);
   });
 });
