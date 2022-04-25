@@ -10,7 +10,7 @@ const modifyWithBase = (
   const currentBaseExists: boolean = Boolean(base && base in data);
 
   if (!currentBaseExists) {
-    return { ...data };
+    throw new Error('Base is invalid');
   }
 
   const currentBase: number = data[base!];
