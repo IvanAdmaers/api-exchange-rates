@@ -33,7 +33,9 @@ describe('modifyWithBase', () => {
     expect(modifyWithBase(base, input)).toEqual(output);
   });
 
-  it(`should change nothing if a base doesn't exist`, () => {
-    expect(modifyWithBase('I_DONT_EXIST', input)).toEqual(input);
+  it(`should throw and error when base doesn't exist`, () => {
+    expect(() => {
+      modifyWithBase('BASE_THAT_DOESNT_EXIST', input);
+    }).toThrow();
   });
 });
