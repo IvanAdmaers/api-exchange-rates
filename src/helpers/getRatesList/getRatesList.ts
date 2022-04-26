@@ -1,6 +1,6 @@
 import { RatesListInterface } from '../../typescript/interfaces';
 import { EndpointObject } from '../../typescript/objects';
-
+import { APIError } from '../../exceptions';
 import getLatestRates from '../getLatestRates';
 import getHistoricalRates from '../getHistoricalRates';
 import getTimeseriesRates from '../getTimeseriesRates';
@@ -40,7 +40,7 @@ const getRatesList = ({
 
     case Historical: {
       if (!date) {
-        throw new Error('date is not set');
+        return APIError.dateNotSpecified();
       }
 
       const formattedDate: string = formatDate(date);
@@ -50,14 +50,14 @@ const getRatesList = ({
 
     case Timeseries: {
       if (!startDate || !endDate) {
-        throw new Error('startDate or endDate is not set');
+        return APIError.invalidDate('StartDate or endDate is not set');
       }
 
       const start: Date = new Date(startDate);
       const end: Date = new Date(endDate);
 
       if (start.getFullYear() > end.getFullYear()) {
-        throw new Error('Start year is bigger than end year');
+        return APIError.invalidDate('Start year is greather than end year');
       }
 
       return getTimeseriesRates(rates, start, end);
