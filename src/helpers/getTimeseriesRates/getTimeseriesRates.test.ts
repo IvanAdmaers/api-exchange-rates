@@ -3,6 +3,7 @@ import getTimeseriesRates from '.';
 
 const startDate: string = '2022-04-04';
 const endDate: string = '2022-04-05';
+const maxYearDays: number = 366;
 
 const rates: RatesListInterface = {
   [startDate]: {
@@ -26,5 +27,31 @@ describe('getTimeseriesRates', () => {
     expect(
       getTimeseriesRates(rates, new Date(startDate), new Date(endDate))
     ).toEqual(rates);
+  });
+
+  it('should not thrown an error if dates length is not bigger than allowed', () => {
+    expect(() => {
+      getTimeseriesRates(
+        rates,
+        new Date('1999-01-01'),
+        new Date('2000-01-01'),
+        {
+          maxDatesLength: maxYearDays,
+        }
+      );
+    }).not.toThrow();
+  });
+
+  it('should thrown an error if dates length is bigger than allowed', () => {
+    expect(() => {
+      getTimeseriesRates(
+        rates,
+        new Date('1999-01-01'),
+        new Date('2000-01-03'),
+        {
+          maxDatesLength: maxYearDays,
+        }
+      );
+    }).toThrow();
   });
 });
