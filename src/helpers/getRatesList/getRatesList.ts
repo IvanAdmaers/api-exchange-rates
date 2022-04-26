@@ -48,12 +48,20 @@ const getRatesList = ({
       return getHistoricalRates(rates, formattedDate);
     }
 
-    case Timeseries:
+    case Timeseries: {
       if (!startDate || !endDate) {
         throw new Error('startDate or endDate is not set');
       }
 
-      return getTimeseriesRates(rates, new Date(startDate), new Date(endDate));
+      const start: Date = new Date(startDate);
+      const end: Date = new Date(endDate);
+
+      if (start.getFullYear() > end.getFullYear()) {
+        throw new Error('Start year is bigger than end year');
+      }
+
+      return getTimeseriesRates(rates, start, end);
+    }
 
     default:
       throw new Error('Endpoint is unknown');
