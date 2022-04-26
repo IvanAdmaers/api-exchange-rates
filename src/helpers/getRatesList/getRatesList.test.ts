@@ -32,6 +32,11 @@ const rates: RatesListInterface = {
   },
 };
 
+const timeseriesOutput: RatesListInterface = {
+  [date2]: { ...rates[date2] },
+  [date3]: { ...rates[date3] },
+};
+
 describe('getRatesList', () => {
   it(`should return a correct result for the ${Latest} endpoint`, () => {
     const date: string = date1;
@@ -50,11 +55,6 @@ describe('getRatesList', () => {
   });
 
   it(`should return a correct result for the ${Timeseries} endpoint`, () => {
-    const output: RatesListInterface = {
-      [date2]: { ...rates[date2] },
-      [date3]: { ...rates[date3] },
-    };
-
     expect(
       getRatesList({
         rates,
@@ -62,6 +62,17 @@ describe('getRatesList', () => {
         startDate: date2,
         endDate: date3,
       })
-    ).toEqual(output);
+    ).toEqual(timeseriesOutput);
+  });
+
+  it(`should throw an error when ${Timeseries} endpoint and start year is bigger than end year`, () => {
+    expect(() => {
+      getRatesList({
+        rates,
+        endpoint: Timeseries,
+        startDate: '2022-01-01',
+        endDate: '2021-01-1',
+      });
+    }).toThrow();
   });
 });
