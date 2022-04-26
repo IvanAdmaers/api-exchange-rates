@@ -34,8 +34,20 @@ class APIError {
     return new APIError(500, msg);
   }
 
-  public static noResult(message: string = 'The current request did not return any results') {
+  public static noResult(
+    message: string = 'The current request did not return any results'
+  ) {
     return new APIError(106, message);
+  }
+
+  public static invalidDate(
+    message: string = 'An invalid date has been specified'
+  ) {
+    return new APIError(302, message);
+  }
+
+  public static dateNotSpecified(message = 'No date has been specified') {
+    return new APIError(301, message);
   }
 }
 
