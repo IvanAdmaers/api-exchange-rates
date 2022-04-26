@@ -10,11 +10,17 @@ import { getDatesInRange, formatDate } from '../../utills';
 const getTimeseriesRates = (
   rates: RatesListInterface,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+  { maxDatesLength }: { maxDatesLength?: number } = {}
 ): RatesListInterface => {
   const result: RatesListInterface = {};
 
   const dates: Array<Date> = getDatesInRange(startDate, endDate);
+
+  if (maxDatesLength && dates.length - 1 > maxDatesLength) {
+    throw new Error('Dates length is bigger than maxDatesLength');
+  }
+
   const dateList: Array<string> = dates.map((itemDate) =>
     formatDate(itemDate.toDateString())
   );
