@@ -36,11 +36,6 @@ export const rates = async (req, res, next) => {
       endDate,
     });
 
-    // TODO: refactor this
-    if (currentRatesList instanceof APIError) {
-      return next(currentRatesList);
-    }
-
     if (!currentRatesList) {
       return next(APIError.noResult());
     }
