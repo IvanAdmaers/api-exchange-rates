@@ -4,6 +4,7 @@ import { APIError } from '../../exceptions';
 import getLatestRates from '../getLatestRates';
 import getHistoricalRates from '../getHistoricalRates';
 import getTimeseriesRates from '../getTimeseriesRates';
+import { MAX_TIMESERIES_DATES_LENGTH } from '../../constants';
 import { formatDate } from '../../utills';
 
 const { Latest, Historical, Timeseries } = EndpointObject;
@@ -59,7 +60,13 @@ const getRatesList = ({
         throw APIError.invalidDate('Start year is greather than end year');
       }
 
-      return getTimeseriesRates(rates, start, end);
+      try {
+        return getTimeseriesRates(rates, start, end, {
+          maxDatesLength: MAX_TIMESERIES_DATES_LENGTH,
+        });
+      } catch (error) {
+        throw APIError.pecifiedTimeFrameIsTooLong();
+      }
     }
 
     default:
