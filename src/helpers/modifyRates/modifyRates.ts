@@ -7,7 +7,6 @@ import {
   modifyWithSymbols,
   modifyWithAmount,
   modifyWithToFixed,
-  sortObjectAlphabetically,
 } from '../../utills';
 
 import { TO_FIXED_DEFAULT_VALUE } from '../../constants';
@@ -48,10 +47,7 @@ const modifyRates = ({
       TO_FIXED_DEFAULT_VALUE
     );
 
-    const sortedByAlphabetically: object =
-      sortObjectAlphabetically(modifiedWithToFixed);
-
-    return sortedByAlphabetically as RatesInterface;
+    return modifiedWithToFixed;
   };
 
   if (!isTimeseries) {
