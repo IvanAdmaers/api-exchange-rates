@@ -2,7 +2,8 @@ import {
   RatesInterface,
   RatesListInterface,
 } from '../../typescript/interfaces';
-import { XMLToObject, doFetch } from '../../utills';
+import { doFetch } from '../../libs';
+import { XMLToObject } from '../../utills';
 
 interface GetLatestDataInterface {
   rates: RatesInterface;
