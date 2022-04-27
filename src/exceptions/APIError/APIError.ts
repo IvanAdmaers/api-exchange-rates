@@ -49,6 +49,12 @@ class APIError {
   public static dateNotSpecified(message = 'No date has been specified') {
     return new APIError(301, message);
   }
+
+  public static pecifiedTimeFrameIsTooLong(
+    message: string = 'The period specified is too long, expected up to and including 366 days'
+  ) {
+    return new APIError(505, message);
+  }
 }
 
 export default APIError;
