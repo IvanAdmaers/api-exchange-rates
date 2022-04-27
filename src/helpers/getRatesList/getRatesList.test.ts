@@ -1,6 +1,5 @@
 import { RatesListInterface } from '../../typescript/interfaces';
 import { EndpointObject } from '../../typescript/objects';
-import { APIError } from '../../exceptions';
 import getRatesList from '.';
 
 const { Latest, Historical, Timeseries } = EndpointObject;
@@ -67,15 +66,13 @@ describe('getRatesList', () => {
   });
 
   it(`should throw an error when ${Timeseries} endpoint and start year is bigger than end year`, () => {
-    const list = getRatesList({
-      rates,
-      endpoint: Timeseries,
-      startDate: '2022-01-01',
-      endDate: '2021-01-1',
-    });
-
-    const isInstanceOfAPIEror = list instanceof APIError;
-
-    expect(isInstanceOfAPIEror).toBe(true);
+    expect(() => {
+      getRatesList({
+        rates,
+        endpoint: Timeseries,
+        startDate: '2022-01-01',
+        endDate: '2021-01-1',
+      });
+    }).toThrow();
   });
 });
