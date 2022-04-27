@@ -4,7 +4,6 @@ import { APIError } from '../../exceptions';
 import getLatestRates from '../getLatestRates';
 import getHistoricalRates from '../getHistoricalRates';
 import getTimeseriesRates from '../getTimeseriesRates';
-
 import { formatDate } from '../../utills';
 
 const { Latest, Historical, Timeseries } = EndpointObject;
@@ -40,7 +39,7 @@ const getRatesList = ({
 
     case Historical: {
       if (!date) {
-        return APIError.dateNotSpecified();
+        throw APIError.dateNotSpecified();
       }
 
       const formattedDate: string = formatDate(date);
@@ -50,14 +49,14 @@ const getRatesList = ({
 
     case Timeseries: {
       if (!startDate || !endDate) {
-        return APIError.invalidDate('StartDate or endDate is not set');
+        throw APIError.invalidDate('StartDate or endDate is not set');
       }
 
       const start: Date = new Date(startDate);
       const end: Date = new Date(endDate);
 
       if (start.getFullYear() > end.getFullYear()) {
-        return APIError.invalidDate('Start year is greather than end year');
+        throw APIError.invalidDate('Start year is greather than end year');
       }
 
       return getTimeseriesRates(rates, start, end);
