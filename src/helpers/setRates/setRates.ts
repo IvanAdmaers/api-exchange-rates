@@ -6,7 +6,7 @@ import {
 import { BankAPIService } from '../../services';
 import { FileSystem } from '../../libs';
 import { getRates } from '..';
-import { modifyWithBase, modifyWithToFixed } from '../../utills';
+import { modifyWithBase, modifyWithToFixed, sortObjectAlphabetically } from '../../utills';
 import {
   DEFAULT_BASE,
   TO_FIXED_DEFAULT_VALUE,
@@ -55,7 +55,9 @@ const setRates = async ({
         TO_FIXED_DEFAULT_VALUE
       );
 
-      rates[key] = modifiedWithToFixed;
+      const sortedAlphabetically = sortObjectAlphabetically(modifiedWithToFixed);
+
+      rates[key] = sortedAlphabetically as RatesInterface;
     }
   );
 
