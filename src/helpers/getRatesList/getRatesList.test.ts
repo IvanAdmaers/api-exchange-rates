@@ -37,6 +37,10 @@ const timeseriesOutput: RatesListInterface = {
   [date3]: { ...rates[date3] },
 };
 
+jest.mock('../../constants', () => ({
+  MAX_TIMESERIES_DATES_LENGTH: 366,
+}));
+
 describe('getRatesList', () => {
   it(`should return a correct result for the ${Latest} endpoint`, () => {
     const date: string = date1;
@@ -72,6 +76,17 @@ describe('getRatesList', () => {
         endpoint: Timeseries,
         startDate: '2022-01-01',
         endDate: '2021-01-1',
+      });
+    }).toThrow();
+  });
+
+  it(`should throw an error when ${Timeseries} endpoint and dates length is greater than set in maxDatesLength param`, () => {
+    expect(() => {
+      getRatesList({
+        rates,
+        endpoint: Timeseries,
+        startDate: '1999-04-27',
+        endDate: '2022-04-27',
       });
     }).toThrow();
   });
