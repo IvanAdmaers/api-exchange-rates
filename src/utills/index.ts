@@ -1,6 +1,5 @@
 import getErrorBody from './getErrorBody';
 import XMLToObject from './XMLToObject';
-import doFetch from './doFetch';
 import sortObjectAlphabetically from './sortObjectAlphabetically';
 import modifyWithBase from './modifyWithBase';
 import modifyWithSymbols from './modifyWithSymbols';
@@ -14,7 +13,6 @@ import isProduction from './isProduction';
 export {
   getErrorBody,
   XMLToObject,
-  doFetch,
   sortObjectAlphabetically,
   modifyWithBase,
   modifyWithSymbols,
