@@ -30,8 +30,7 @@ const getMockRatesString = (historical?: boolean): string => `
 </gesmes:Envelope>
 `;
 
-jest.mock('../../utills', () => ({
-  ...jest.requireActual('../../utills'),
+jest.mock('../../libs', () => ({
   doFetch: jest
     .fn()
     .mockImplementationOnce(() => Promise.resolve(getMockRatesString()))
