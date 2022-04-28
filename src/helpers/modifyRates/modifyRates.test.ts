@@ -216,4 +216,10 @@ describe('modifyRates', () => {
       modifyRates({ base, rates, symbols, amount, isTimeseries: true })
     ).toEqual(output);
   });
+
+  it('should throw an error when an invalid passed base is invalid', () => {
+    expect(() => {
+      modifyRates({ base: 'I_AM_AN_INVALID_BASE', rates: ratesByDate });
+    }).toThrow();
+  });
 });
