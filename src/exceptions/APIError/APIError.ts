@@ -55,6 +55,12 @@ class APIError {
   ) {
     return new APIError(505, message);
   }
+
+  public static invalidBase(
+    message: string = 'An invalid base currency has been entered'
+  ) {
+    return new APIError(201, message);
+  }
 }
 
 export default APIError;
