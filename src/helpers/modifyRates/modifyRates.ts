@@ -2,11 +2,13 @@ import {
   RatesListInterface,
   RatesInterface,
 } from '../../typescript/interfaces';
+import { APIError } from '../../exceptions';
 import {
   modifyWithBase,
   modifyWithSymbols,
   modifyWithAmount,
   modifyWithToFixed,
+  catchSyncError,
 } from '../../utills';
 
 import { TO_FIXED_DEFAULT_VALUE } from '../../constants';
@@ -28,11 +30,19 @@ const modifyRates = ({
   isTimeseries?: boolean;
 }) => {
   const doModify = (ratesItem: RatesInterface) => {
-    const modifiedWithBase: RatesInterface = modifyWithBase(base, ratesItem);
+    const [error, modifiedWithBase] = catchSyncError<RatesInterface>(
+      modifyWithBase,
+      base,
+      ratesItem
+    );
+
+    if (error) {
+      throw APIError.invalidBase();
+    }
 
     const modifiedWithSymbols: RatesInterface = modifyWithSymbols(
       symbols,
-      modifiedWithBase
+      modifiedWithBase as RatesInterface
     );
 
     const paramAmount: number = amount ? +amount : 1;
