@@ -30,13 +30,10 @@ const modifyRates = ({
   isTimeseries?: boolean;
 }) => {
   const doModify = (ratesItem: RatesInterface) => {
-    const [error, modifiedWithBase] = catchSyncError<RatesInterface>(
-      modifyWithBase,
-      base,
-      ratesItem
-    );
+    const [modifyWithBaseError, modifiedWithBase] =
+      catchSyncError<RatesInterface>(modifyWithBase, base, ratesItem);
 
-    if (error) {
+    if (modifyWithBaseError) {
       throw APIError.invalidBase();
     }
 
