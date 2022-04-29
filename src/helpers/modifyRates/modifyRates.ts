@@ -7,11 +7,8 @@ import {
   modifyWithBase,
   modifyWithSymbols,
   modifyWithAmount,
-  modifyWithToFixed,
   catchSyncError,
 } from '../../utills';
-
-import { TO_FIXED_DEFAULT_VALUE } from '../../constants';
 
 /**
  * This function modifies rates. Call order: modifyWithBase => modifyWithSymbols => modifyWithAmount => sortObjectAlphabetically
@@ -49,12 +46,7 @@ const modifyRates = ({
       modifiedWithSymbols
     );
 
-    const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
-      modifiedWithAmount,
-      TO_FIXED_DEFAULT_VALUE
-    );
-
-    return modifiedWithToFixed;
+    return modifiedWithAmount;
   };
 
   if (!isTimeseries) {
