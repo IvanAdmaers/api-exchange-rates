@@ -26,10 +26,10 @@ describe('modifyWithSymbols', () => {
     expect(modifyWithSymbols(symbols, input)).toEqual(input);
   });
 
-  it('should return input data if there are no currencies sorted by symbols', () => {
-    const symbols: 'none' = 'none';
+  it('should return nothing if there are no currencies sorted by symbols', () => {
+    const symbols: string = 'I_DONT_EXIST';
 
-    expect(modifyWithSymbols(symbols, input)).toEqual(input);
+    expect(modifyWithSymbols(symbols, input)).toEqual({});
   });
 
   it('should return a correct result', () => {
