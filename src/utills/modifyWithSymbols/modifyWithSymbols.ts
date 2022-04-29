@@ -15,16 +15,12 @@ const modifyWithSymbols = (
   }
 
   symbolsArray.forEach((symbol) => {
-    if (!data[symbol]) {
+    if (symbol in data === false) {
       return;
     }
 
     result[symbol] = data[symbol];
   });
-
-  if (!Object.keys(result).length) {
-    return { ...data };
-  }
 
   return result;
 };
