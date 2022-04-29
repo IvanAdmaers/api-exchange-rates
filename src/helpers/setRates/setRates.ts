@@ -46,8 +46,8 @@ const setRates = async ({
       }
 
       const modifiedWithBase: RatesInterface = modifyWithBase(DEFAULT_BASE, {
-        ...value,
         [ratesBase]: 1,
+        ...value,
       });
 
       const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
