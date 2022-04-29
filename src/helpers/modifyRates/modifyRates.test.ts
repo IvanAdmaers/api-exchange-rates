@@ -4,11 +4,12 @@ import {
 } from '../../typescript/interfaces';
 import modifyRates from '.';
 import {
+  modifyWithToFixed,
   modifyWithBase,
   modifyWithSymbols,
   modifyWithAmount,
 } from '../../utills';
-import { DEFAULT_BASE } from '../../constants';
+import { TO_FIXED_DEFAULT_VALUE, DEFAULT_BASE } from '../../constants';
 
 const date1: string = '2022-04-06';
 const date2: string = '2022-04-07';
@@ -34,7 +35,12 @@ const rates: RatesListInterface = {};
 
 // Modify rates value with toFixed
 Object.entries(ratesList).forEach(([key, value]: [string, RatesInterface]) => {
-  rates[key] = value;
+  const ratesModifiedWithToFixed = modifyWithToFixed(
+    value,
+    TO_FIXED_DEFAULT_VALUE
+  );
+
+  rates[key] = ratesModifiedWithToFixed;
 });
 
 const ratesByDate: RatesInterface = rates[date1];
@@ -67,8 +73,14 @@ describe('modifyRates', () => {
   it('should modify rates only with base and toFixed', () => {
     const base: string = 'EUR';
     const modifiedWithBase: RatesInterface = modifyWithBase(base, ratesByDate);
+    const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
+      modifiedWithBase,
+      TO_FIXED_DEFAULT_VALUE
+    );
 
-    expect(modifyRates({ base, rates: ratesByDate })).toEqual(modifiedWithBase);
+    expect(modifyRates({ base, rates: ratesByDate })).toEqual(
+      modifiedWithToFixed
+    );
   });
 
   it('should modify timeseries rates only with base and toFixed', () => {
@@ -77,8 +89,12 @@ describe('modifyRates', () => {
 
     Object.entries(rates).forEach(([key, value]: [string, RatesInterface]) => {
       const ratesModifiedWithBase: RatesInterface = modifyWithBase(base, value);
+      const ratesModifiedWithToFixed: RatesInterface = modifyWithToFixed(
+        ratesModifiedWithBase,
+        TO_FIXED_DEFAULT_VALUE
+      );
 
-      output[key] = ratesModifiedWithBase;
+      output[key] = ratesModifiedWithToFixed;
     });
 
     expect(modifyRates({ base, rates, isTimeseries: true })).toEqual(output);
@@ -115,10 +131,14 @@ describe('modifyRates', () => {
       amount,
       ratesByDate
     );
+    const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
+      modifiedWithAmount,
+      TO_FIXED_DEFAULT_VALUE
+    );
 
     expect(
       modifyRates({ base: DEFAULT_BASE, rates: ratesByDate, amount })
-    ).toEqual(modifiedWithAmount);
+    ).toEqual(modifiedWithToFixed);
   });
 
   it('should modify timeseries rates only with amount and toFixed', () => {
@@ -130,8 +150,12 @@ describe('modifyRates', () => {
         amount,
         value
       );
+      const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
+        modifiedWithAmount,
+        TO_FIXED_DEFAULT_VALUE
+      );
 
-      output[key] = modifiedWithAmount;
+      output[key] = modifiedWithToFixed;
     });
 
     expect(
@@ -153,9 +177,13 @@ describe('modifyRates', () => {
       amount,
       modifiedWithSymbols
     );
+    const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
+      modifiedWithAmount,
+      TO_FIXED_DEFAULT_VALUE
+    );
 
     expect(modifyRates({ base, rates: ratesByDate, symbols, amount })).toEqual(
-      modifiedWithAmount
+      modifiedWithToFixed
     );
   });
 
@@ -176,8 +204,12 @@ describe('modifyRates', () => {
         amount,
         modifiedWithSymbols
       );
+      const modifiedWithToFixed: RatesInterface = modifyWithToFixed(
+        modifiedWithAmount,
+        TO_FIXED_DEFAULT_VALUE
+      );
 
-      output[key] = modifiedWithAmount;
+      output[key] = modifiedWithToFixed;
     });
 
     expect(
