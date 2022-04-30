@@ -9,9 +9,10 @@ const router = Router();
 const cacheTime = 15 * 1000 * 60;
 
 router.use(validatorMiddleware());
+router.use(cacheMiddleware(cacheTime));
 
-router.get('/ecb/latest', cacheMiddleware(cacheTime), rates);
-router.get('/ecb/:date', cacheMiddleware(cacheTime), rates);
-router.get('/ecb/timeseries', cacheMiddleware(cacheTime), rates);
+router.get('/ecb/latest', rates);
+router.get('/ecb/:date', rates);
+router.get('/ecb/timeseries', rates);
 
 export default router;
