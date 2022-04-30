@@ -7,7 +7,7 @@ const isProduction = isProductionMode();
  * This middleware makes caching
  *
  * @param {number} duration - Cache duration in milliseconds
- * @param {boolean=} cacheInDevelopment - Should it cache in development mode
+ * @param {object} options - Options
  */
 const cacheMiddleware =
   (
