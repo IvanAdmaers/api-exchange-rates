@@ -61,6 +61,12 @@ class APIError {
   ) {
     return new APIError(201, message);
   }
+
+  public static invalidAmount(
+    message: string = 'An invalid amount has been entered'
+  ) {
+    return new APIError(130, message);
+  }
 }
 
 export default APIError;
