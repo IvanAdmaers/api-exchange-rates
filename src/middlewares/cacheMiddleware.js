@@ -15,7 +15,7 @@ const cacheMiddleware =
     {
       cacheInDevelopment = false,
       headers = { 'Content-Type': 'application/json; charset=utf-8' },
-    }
+    } = {}
   ) =>
   (req, res, next) => {
     if (!isProduction && !cacheInDevelopment) {
