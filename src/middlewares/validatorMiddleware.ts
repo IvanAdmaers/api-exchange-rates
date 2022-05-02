@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { APIError } from '../exceptions';
+import { isValidDateFormat } from '../utills';
 
 /**
  * This function is a validator middleware
@@ -18,6 +19,14 @@ const validatorMiddleware =
 
       if (amount <= 0 || !Number.isSafeInteger(amount)) {
         return next(APIError.invalidAmount('Amount is incorrect'));
+      }
+    }
+
+    const { date } = req.params;
+
+    if (date) {
+      if (!isValidDateFormat(date)) {
+        return next(APIError.invalidDate());
       }
     }
 
