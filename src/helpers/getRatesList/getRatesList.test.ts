@@ -69,17 +69,6 @@ describe('getRatesList', () => {
     ).toEqual(timeseriesOutput);
   });
 
-  it(`should throw an error when ${Timeseries} endpoint and start year is bigger than end year`, () => {
-    expect(() => {
-      getRatesList({
-        rates,
-        endpoint: Timeseries,
-        startDate: '2022-01-01',
-        endDate: '2021-01-1',
-      });
-    }).toThrow();
-  });
-
   it(`should throw an error when ${Timeseries} endpoint and dates length is greater than set in maxDatesLength param`, () => {
     expect(() => {
       getRatesList({

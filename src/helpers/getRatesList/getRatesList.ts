@@ -56,10 +56,6 @@ const getRatesList = ({
       const start: Date = new Date(startDate);
       const end: Date = new Date(endDate);
 
-      if (start.getFullYear() > end.getFullYear()) {
-        throw APIError.invalidDate('Start year is greather than end year');
-      }
-
       try {
         return getTimeseriesRates(rates, start, end, {
           maxDatesLength: MAX_TIMESERIES_DATES_LENGTH,
