@@ -10,6 +10,7 @@ import toFixed from './toFixed';
 import modifyWithToFixed from './modifyWithToFixed';
 import isProduction from './isProduction';
 import catchSyncError from './catchSyncError';
+import isValidDateFormat from './isValidDateFormat';
 
 export {
   getErrorBody,
@@ -24,4 +25,5 @@ export {
   modifyWithToFixed,
   isProduction,
   catchSyncError,
+  isValidDateFormat,
 };
