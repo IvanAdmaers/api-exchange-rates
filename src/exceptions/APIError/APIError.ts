@@ -37,7 +37,7 @@ class APIError {
   public static noResult(
     message: string = 'The current request did not return any results'
   ) {
-    return new APIError(106, message);
+    return new APIError(207, message);
   }
 
   public static invalidDate(
@@ -65,7 +65,7 @@ class APIError {
   public static pecifiedTimeFrameIsTooLong(
     message: string = 'The period specified is too long, expected up to and including 366 days'
   ) {
-    return new APIError(505, message);
+    return new APIError(206, message);
   }
 
   public static invalidBase(
