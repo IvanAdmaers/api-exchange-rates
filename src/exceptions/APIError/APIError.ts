@@ -43,7 +43,19 @@ class APIError {
   public static invalidDate(
     message: string = 'An invalid date has been specified'
   ) {
-    return new APIError(302, message);
+    return new APIError(203, message);
+  }
+
+  public static invalidStartDate(
+    message: string = 'No or an invalid \'start_date\' has been specified'
+  ) {
+    return new APIError(204, message);
+  }
+
+  public static invalidEndDate(
+    message: string = 'No or an invalid \'end_date\' has been specified'
+  ) {
+    return new APIError(205, message);
   }
 
   public static dateNotSpecified(message = 'No date has been specified') {
@@ -65,7 +77,7 @@ class APIError {
   public static invalidAmount(
     message: string = 'An invalid amount has been entered'
   ) {
-    return new APIError(130, message);
+    return new APIError(202, message);
   }
 }
 
