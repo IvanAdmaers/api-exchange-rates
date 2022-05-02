@@ -4,9 +4,7 @@ import { getErrorBody } from '../utills';
 
 const errorHandlerMiddleware = () => (error, req, res, next) => {
   if (error instanceof APIError) {
-    const status = error.code < 200 ? 200 : error.code;
-
-    return res.status(status).json(getErrorBody(error.code, error.message));
+    return res.status(200).json(getErrorBody(error.code, error.message));
   }
 
   if (error instanceof SyntaxError && error.status === 400 && 'body' in error) {
