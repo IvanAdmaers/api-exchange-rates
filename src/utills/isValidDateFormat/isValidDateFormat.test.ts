@@ -24,4 +24,36 @@ describe('isValidDateFormat', () => {
   it('should return false for an invalid date 5', () => {
     expect(isValidDateFormat('2022-05/02')).toBe(false);
   });
+
+  it('should return false for an invalid date 6', () => {
+    expect(isValidDateFormat('2022-05-032')).toBe(false);
+  });
+
+  it('should return false for an invalid date 7', () => {
+    expect(isValidDateFormat('2022-105-03')).toBe(false);
+  });
+
+  it('should return false for an invalid date 8', () => {
+    expect(isValidDateFormat('20222-05-03')).toBe(false);
+  });
+
+  it('should return false for an invalid date 9', () => {
+    expect(isValidDateFormat('20220503')).toBe(false);
+  });
+
+  it('should return false for an invalid date 10', () => {
+    expect(isValidDateFormat('')).toBe(false);
+  });
+
+  it('should return false for an invalid date 11', () => {
+    expect(isValidDateFormat('hi')).toBe(false);
+  });
+
+  it('should return false for an invalid date 12', () => {
+    expect(isValidDateFormat('🔫')).toBe(false);
+  });
+
+  it('should return false for an invalid date 14', () => {
+    expect(isValidDateFormat('U+1F52B')).toBe(false);
+  });
 });
