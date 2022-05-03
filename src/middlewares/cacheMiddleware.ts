@@ -4,16 +4,12 @@ import { isProduction as isProductionMode } from '../utills';
 
 const isProduction: boolean = isProductionMode();
 
-interface CustomExpressResponse extends Omit<Response, 'send'> {
+interface CustomExpressResponse extends Response {
   sendResponse: Function;
-  send: Function;
 }
 
 /**
  * This middleware makes caching
- *
- * @param {number} duration - Cache duration in milliseconds
- * @param {object} options - Options
  */
 const cacheMiddleware =
   (
@@ -46,9 +42,9 @@ const cacheMiddleware =
 
     res.sendResponse = res.send;
 
-    res.send = (body) => {
+    res.send = (body: string) => {
       cache.put(key, body, duration);
-      res.sendResponse(body);
+      return res.sendResponse(body);
     };
 
     return next();
