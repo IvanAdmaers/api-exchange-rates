@@ -6,7 +6,7 @@ import validatorMiddleware from '../middlewares/validatorMiddleware';
 
 const router = Router();
 
-const cacheTime = 15 * 1000 * 60;
+const cacheTime: number = 15 * 1000 * 60;
 
 router.use(validatorMiddleware());
 router.use(cacheMiddleware(cacheTime));
