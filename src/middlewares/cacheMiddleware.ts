@@ -1,7 +1,13 @@
+import { Request, Response, NextFunction } from 'express';
 import cache from 'memory-cache-pro';
 import { isProduction as isProductionMode } from '../utills';
 
-const isProduction = isProductionMode();
+const isProduction: boolean = isProductionMode();
+
+interface CustomExpressResponse extends Omit<Response, 'send'> {
+  sendResponse: Function;
+  send: Function;
+}
 
 /**
  * This middleware makes caching
@@ -11,21 +17,24 @@ const isProduction = isProductionMode();
  */
 const cacheMiddleware =
   (
-    duration,
+    duration: number,
     {
       cacheInDevelopment = false,
       headers = { 'Content-Type': 'application/json; charset=utf-8' },
+    }: {
+      cacheInDevelopment?: boolean;
+      headers?: { [key: string]: string };
     } = {}
   ) =>
-  (req, res, next) => {
+  (req: Request, res: CustomExpressResponse, next: NextFunction) => {
     if (!isProduction && !cacheInDevelopment) {
       return next();
     }
 
-    const url = req.originalUrl ?? req.url;
-    const key = `__express__cache__url__${url}`;
+    const url: string = req.originalUrl ?? req.url;
+    const key: string = `__express__cache__url__${url}`;
 
-    const cacheContent = cache.get(key);
+    const cacheContent: string | null = cache.get(key);
 
     if (cacheContent) {
       Object.entries(headers).forEach(([headerKey, headerValue]) => {
