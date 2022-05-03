@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express';
 import memory from 'memory-cache-pro';
 
 import { APIError } from '../exceptions';
@@ -16,13 +17,33 @@ import {
 const ratesList = memory.get(RATES_MEMORY_KEY);
 const lastRatesDate = memory.get(LAST_RATES_DATE_MEMORY_KEY);
 
-export const rates = async (req, res, next) => {
-  try {
-    const { symbols, start_date: startDate, end_date: endDate } = req.query;
-    const base = req.query.base ?? DEFAULT_BASE;
-    const amount = +req.query.amount;
+interface Queries {
+  symbols?: string;
+  start_date?: string;
+  end_date?: string;
+  date?: string;
+  amount?: number;
+  base?: string;
+}
 
-    const { date } = req.params;
+export const rates = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      symbols,
+      start_date: startDate,
+      end_date: endDate,
+      date,
+    }: Queries = req.query;
+    const base: Queries['base'] = req.query.base
+      ? (req.query.base as string)
+      : DEFAULT_BASE;
+    const amount: Queries['amount'] = req.query.amount
+      ? +req.query.amount
+      : undefined;
 
     const endpoint = defineEndpoint({ date, startDate, endDate });
     const isTimeseries = endpoint === 'timeseries';
