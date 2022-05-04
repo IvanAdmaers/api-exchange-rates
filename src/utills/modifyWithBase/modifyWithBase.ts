@@ -1,4 +1,5 @@
 import { RatesInterface } from '../../typescript/interfaces';
+import { hasOwnProperty } from '..';
 
 /**
  * This function modifies rates depending on currency
@@ -7,7 +8,9 @@ const modifyWithBase = (
   base: string | undefined | null,
   data: RatesInterface
 ): RatesInterface => {
-  const currentBaseExists: boolean = Boolean(base && base in data);
+  const currentBaseExists: boolean = Boolean(
+    base && hasOwnProperty(data, base)
+  );
 
   if (!currentBaseExists) {
     throw new Error('Base is invalid');

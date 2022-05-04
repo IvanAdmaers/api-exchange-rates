@@ -1,4 +1,5 @@
 import { RatesInterface } from '../../typescript/interfaces';
+import { hasOwnProperty } from '..';
 
 /**
  * This function returns an object of currencies by symbols
@@ -15,7 +16,7 @@ const modifyWithSymbols = (
   }
 
   symbolsArray.forEach((symbol) => {
-    if (symbol in data === false) {
+    if (!hasOwnProperty(data, symbol)) {
       return;
     }
 
