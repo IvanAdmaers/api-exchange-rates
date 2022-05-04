@@ -11,6 +11,7 @@ import modifyWithToFixed from './modifyWithToFixed';
 import isProduction from './isProduction';
 import catchSyncError from './catchSyncError';
 import isValidDateFormat from './isValidDateFormat';
+import hasOwnProperty from './hasOwnProperty';
 
 export {
   getErrorBody,
@@ -26,4 +27,5 @@ export {
   isProduction,
   catchSyncError,
   isValidDateFormat,
+  hasOwnProperty,
 };
