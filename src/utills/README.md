@@ -2,6 +2,7 @@
 
 Utills includes function that must be pure and maximum universal.
 By universal, I mean an availability to make Ctrl + C and Ctrl + V and function will be work even in another project without any additional settings.
+So far, the exception is only for TypeScript imports.
 
 They can't get access to outside of the utills folder.
 
