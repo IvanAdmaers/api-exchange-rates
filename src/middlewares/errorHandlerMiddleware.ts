@@ -1,7 +1,7 @@
 import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
 
 import { APIError } from '../exceptions';
-import { getErrorBody } from '../utills';
+import { getErrorBody, hasOwnProperty } from '../utills';
 
 interface SyntaxErrorInterface extends SyntaxError {
   status?: number;
@@ -21,14 +21,12 @@ const errorHandlerMiddleware =
 
     const possibleSyntaxError = error as SyntaxErrorInterface;
 
-    if (
-      error instanceof SyntaxError &&
-      possibleSyntaxError.status === 400 &&
-      'body' in error
-    ) {
+    if (error instanceof SyntaxError && hasOwnProperty(error, 'body')) {
       return res
-        .status(possibleSyntaxError.status)
-        .json(getErrorBody(possibleSyntaxError.status, 'Incorrect request'));
+        .status(possibleSyntaxError.status || 400)
+        .json(
+          getErrorBody(possibleSyntaxError.status || 400, 'Incorrect request')
+        );
     }
 
     console.error(error);
