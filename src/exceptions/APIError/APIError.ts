@@ -1,3 +1,5 @@
+import { NO_RESULT_STATUS_CODE } from '../../constants';
+
 class APIError {
   public readonly code: number;
 
@@ -37,7 +39,7 @@ class APIError {
   public static noResult(
     message: string = 'The current request did not return any results'
   ) {
-    return new APIError(207, message);
+    return new APIError(NO_RESULT_STATUS_CODE, message);
   }
 
   public static invalidDate(
