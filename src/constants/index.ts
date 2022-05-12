@@ -11,3 +11,4 @@ export const TO_FIXED_DEFAULT_VALUE: number = 6;
 export const RATES_MEMORY_KEY: string = 'rates';
 export const LAST_RATES_DATE_MEMORY_KEY: string = 'lastRatesDate';
 export const MAX_TIMESERIES_DATES_LENGTH: number = 366;
+export const NO_RESULT_STATUS_CODE: number = 207;
