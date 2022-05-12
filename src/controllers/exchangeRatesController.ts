@@ -36,8 +36,10 @@ export const rates = async (
       symbols,
       start_date: startDate,
       end_date: endDate,
-      date,
     }: Queries = req.query;
+
+    const { date }: Queries = req.params;
+
     const base: Queries['base'] = req.query.base
       ? (req.query.base as string)
       : DEFAULT_BASE;
