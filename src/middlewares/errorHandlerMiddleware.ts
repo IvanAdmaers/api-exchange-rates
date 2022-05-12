@@ -2,6 +2,7 @@ import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
 
 import { APIError } from '../exceptions';
 import { getErrorBody, hasOwnProperty } from '../utills';
+import { NO_RESULT_STATUS_CODE } from '../constants';
 
 interface SyntaxErrorInterface extends SyntaxError {
   status?: number;
@@ -16,7 +17,11 @@ const errorHandlerMiddleware =
     next: NextFunction
   ) => {
     if (error instanceof APIError) {
-      return res.status(200).json(getErrorBody(error.code, error.message));
+      const statusCode = error.code === NO_RESULT_STATUS_CODE ? 204 : 400;
+
+      return res
+        .status(statusCode)
+        .json(getErrorBody(error.code, error.message));
     }
 
     const possibleSyntaxError = error as SyntaxErrorInterface;
