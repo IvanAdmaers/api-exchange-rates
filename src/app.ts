@@ -47,6 +47,8 @@ dotenv.config({
 
   const app: Application = express();
 
+  app.disable('x-powered-by');
+
   // Routes
   const exchangeRatesRouter = await import('./routes/exchangeRatesRouter').then(
     (module) => module.default
