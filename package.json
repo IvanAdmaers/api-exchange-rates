@@ -1,6 +1,6 @@
 {
   "name": "api-exchange-rates",
-  "version": "1.0.0-beta",
+  "version": "1.0.0",
   "description": "Live exchange rates API",
   "main": "src/app.ts",
   "type": "commonjs",
